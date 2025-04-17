@@ -1,32 +1,28 @@
-<!-- JS for Light / Dark Themes -->
-<script>
-	document.addEventListener("DOMContentLoaded", function () 
+document.addEventListener("DOMContentLoaded", () => 
+{
+    const themeToggle = document.getElementById("theme-toggle");
+
+    // Apply saved theme from localStorage
+    if (localStorage.getItem("theme") === "dark") 
 	{
-		const theme_toggle = document.getElementById('theme-toggle');
+        document.body.classList.add("dark-mode");
+        themeToggle.checked = true;
+    }
 
-		if (localStorage.getItem('theme') === 'dark') 
+    // Toggle theme and save preference
+    themeToggle.addEventListener("change", () => 
+	{
+        if (themeToggle.checked) 
 		{
-			document.body.classList.add('dark-mode');
-			if (theme_toggle) theme_toggle.checked = true;
-		}
-
-		if (theme_toggle) 
+            document.body.classList.add("dark-mode");
+            localStorage.setItem("theme", "dark");
+        } 
+		else 
 		{
-			theme_toggle.addEventListener('change', function () 
-			{
-				if (this.checked) 
-				{
-					document.body.classList.add('dark-mode');
-					localStorage.setItem('theme', 'dark');
-				} 
-				else 
-				{
-					document.body.classList.remove('dark-mode');
-					localStorage.setItem('theme', 'light');
-				}
-			}
-			);
-		}
-	}
-	);
-</script>
+            document.body.classList.remove("dark-mode");
+            localStorage.setItem("theme", "light");
+        }
+    }
+);
+}
+);
