@@ -1,25 +1,25 @@
 /* Light Theme */
 :root 
 {
-    --background_color: #e0e0e0;
-    --text_color: #1d1d1d;
-    --nav_background: #eeeeee;
-    --nav_border: #aaaaaa;
+    --background_color: #DADADA;
+    --text_color: #1D1D1D;
+    --nav_background: #EEEEEE;
+	--nav_border: #AAAAAA;
     --nav_text: #333333;
-    --button_background: #1d1d1d;
-    --button_text: #1d1d1d;
+    --button_background: #1D1D1D;
+    --button_text: #1D1D1D;
 }
 
 /* Dark Theme */
 body.dark-mode 
 {
-    --background_color: #1d1d1d;
-    --text_color: #eeeeee;
+    --background_color: #1D1D1D;
+    --text_color: #EEEEEE;
     --nav_background: #333333;
-    --nav_border: #111111;
-    --nav_text: #f0f0f0;
-    --button_background: #e0e0e0;
-    --button_text: #e0e0e0;
+	--nav_border: #111111;
+    --nav_text: #F0F0F0;
+    --button_background: #DADADA;
+    --button_text: #DADADA;
 }
 
 /* Body Elements */
@@ -27,7 +27,7 @@ body
 {
 	background-color: var(--background_color);
 	display: flex;
-    	flex-direction: column;
+    flex-direction: column;
 	font-family: Arial, Helvetica, sans-serif;
 	margin-left: 0em;
 	margin-right: 0em;
@@ -86,7 +86,7 @@ nav
 	justify-content: space-between;
 	margin-top: -1em;
 	padding-bottom: 0.25em;
-	padding-left: 4em;
+	padding-left: 3.25em;
 	padding-top: 0.25em;
 	text-align: left;
 }
@@ -102,20 +102,6 @@ nav ul
 
 nav li 
 {
-    margin: 0;
-}
-
-.theme-toggle 
-{
-	align-items: center;
-    display: flex;
-    gap: 0.5em;
-	padding-right: 3em;
-}
-
-.theme-toggle h4 
-{
-	font-size: 1em;
     margin: 0;
 }
 
@@ -170,7 +156,7 @@ p
 table
 {
 	background-color: var(--nav_background);
-	border: 3px solid #447ED5;
+	border: 3px solid #3664AA;
 	border-collapse: collapse;
 	padding-left: 1.5em;
 	padding-right: 1.5em;
@@ -178,19 +164,19 @@ table
 
 thead
 {
-	background-color: #3664AA;
+	background-color: #447ED5;
 }
 
 th
 {
-	color: #E0E0E0;
+	color: #DADADA;
 	padding-top: 0.25em;
 	padding-bottom: 0.25em;
 }
 
 tr, td
 {
-	border: 4px solid #447ED5;
+	border: 4px solid #3664AA;
 	color: var(--text_color);
 	padding: 1em;
 	text-align: center;
@@ -300,4 +286,3 @@ footer a:hover
 	padding: 1em;
     text-align: center;
 }
-
