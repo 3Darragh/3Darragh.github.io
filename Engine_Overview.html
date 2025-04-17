@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+
+<html lang="en"> 
+
+	<head>
+		<title>
+			The Plain Engine
+		</title>
+		
+		<link rel="stylesheet" href="Engine.css">
+		
+		<meta charset="utf-8">
+		
+		<!-- Applies Theme -->
+		<script>
+        if (localStorage.getItem('theme') === 'dark') 
+		{
+            document.documentElement.classList.add('dark-mode');
+        }
+		</script>
+	</head>
+	
+	<body>
+		<header>
+				<h1>
+					<a href="Index.html">
+						The Plain Engine
+					</a>
+				</h1>
+		</header>
+		
+		<nav>
+			<ul>
+				<li>
+					<a href="Index.html">
+						Engine Overview
+					</a>
+				</li>
+				<li>
+					<a href="Math_Engine.html">
+						Math Engine
+					</a>
+				</li>
+				<li>
+					<a href="Physics_Engine.html">
+						Physics Engine
+					</a>
+				</li>
+			</ul>
+			
+			<div class="Theme">
+            <h4>
+				Theme Toggle
+			</h4>
+            <label class="switch">
+                <input type="checkbox" id="Theme">
+                <span class="slider">
+				</span>
+            </label>
+			</div>
+		</nav>
+		
+		<main>
+			<h2>
+				What is the Plain Engine?
+			</h2>
+			
+			<p>
+				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+				The Plain Engine is a combined math and physics engine that will be used for real time simulations. It is designed to be easily understandable with simple algorithms, while also  
+				implementing high performance techniques that make it worth using. The purpose of the engine and this website is to provide a learning experience for myself and for others if 
+				they want to create their own engines, as most resources such as physics or rendering textbooks are either expensive or hard to come across. It is for this reason that I plan  
+				to provide a list of all the sources I used for each section of the engine, to show where I got the algorithms from and so you can find more in-depth explanations to learn from.
+			</p>
+			
+			<h2>
+				What Platforms does the Plain Engine Support?
+			</h2>
+			
+			<p>
+				The Plain Engine can ran on the following systems:
+			</p>
+			
+			<ul class="main_bullet_points">
+				<li>
+					Windows.
+					<ul class="sub_bullet_points">
+						<li>
+							32 Bit.
+						</li>
+						<li>
+							64 Bit.
+						</li>
+					</ul>
+				</li>
+				<li>
+					Linux.
+				</li>
+				<li>
+					MacOS.
+				</li>
+				<li>
+					Android.
+				</li>
+				<li>
+					Unix.
+					<ul class="sub_bullet_points">
+						<li>
+							Unix is the default failsafe. 
+						</li>
+					</ul>
+				</li>
+			</ul>
+			
+			<h2>
+				What are the build requirements of the Plain Engine?
+			</h2>
+			
+			<p>
+				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+				The Plain Engine has different build requirements depending on the applications use.
+			<p>
+			
+			<table>
+				<thead>
+					<th>
+						Component:
+					</th>
+					<th>
+						Minimum Specs:
+					</th>
+					<th>
+						Average Specs:
+					</th>
+					<th>
+						High Specs:
+					</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							CPU
+						</td>
+						<td>
+							Intel i5-7500 / AMD Ryzen 3 1200
+						</td>
+						<td>
+							Intel i5-12600K / AMD Ryzen 5 5600X
+						</td>
+						<td>
+							Intel i7-13700K / Ryzen 9 7900X
+						</td>
+					</tr>
+					<tr>
+						<td>
+							GPU
+						</td>
+						<td>
+							NVIDIA GTX 1050 / AMD RX 560
+						</td>
+						<td>
+							NVIDIA RTX 3060 / AMD RX 6700 XT
+						</td>
+						<td>
+							NVIDIA RTX 4080 / AMD RX 7900 XTX
+						</td>
+					</tr>
+					<tr>
+						<td>
+							RAM
+						</td>
+						<td>
+							8 GB DDR4
+						</td>
+						<td>
+							16 GB DDR4
+						</td>
+						<td>
+							32 GB DDR5
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Compiler
+						</td>
+						<td>
+							C++17
+						</td>
+						<td>
+							C++20
+						</td>
+						<td>
+							C++23
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Vulkan API
+						</td>
+						<td>
+							Vulkan 1.2
+						</td>
+						<td>
+							Vulkan 1.3
+						</td>
+						<td>
+							Vulkan 1.3
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<h2>
+				What is the Plain Engine Dependent on?
+			</h2>
+			
+			<p>
+				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+				The Plain Engine is dependent on Assimp, Clang, CMake, GLFW, Glslang, SPIR-V Tools, and Vulkan API.
+				These dependancies do not relate to the math or physics engine directly, as they are made entirely from scratch.
+				The dependancies listed are required for platform control, file reading, rendering APIs, and compiling purposes only.
+			</p>
+			
+			<table>
+				<thead>
+					<tr>
+						<th>
+							Dependency:
+						</th>
+						<th>
+							Description:
+						</th>
+						<th>
+							Webpage:
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							Assimp
+						</td>
+						<td>
+							A multi-platform 3D model importer and exporter.
+						</td>
+						<td>
+							<a href="https://assimp-docs.readthedocs.io/en/latest/about/introduction.html">
+								Assimp Webpage
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Clang
+						</td>
+						<td>
+							A cross-platform C++ compiler built on LLVM.
+						</td>
+						<td>
+							<a href="https://clang.llvm.org/index.html">
+								Clang Webpage
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							CMake
+						</td>
+						<td>
+							A build-system generator.
+						</td>
+						<td>
+							<a href="https://cmake.org/about/">
+								CMake Webpage
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							GLFW
+						</td>
+						<td>
+							A cross-platform windowing and input library.
+						</td>
+						<td>
+							<a href="https://www.glfw.org/docs/latest/intro_guide.html">
+								GLFW Webpage
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Glslang
+						</td>
+						<td>
+							A GLSL/HLSL to SPIR-V shader compiler.
+						</td>
+						<td>
+							<a href="https://www.khronos.org/opengles/sdk/tools/Reference-Compiler/">
+								Glslang Webpage
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							SPIR-V Tools
+						</td>
+						<td>
+							Utilities for SPIR-V shader inspection and validation.
+						</td>
+						<td>
+							<a href="https://chromium.googlesource.com/external/github.com/KhronosGroup/SPIRV-Tools/+/spirv-1.1-rev1/README.md">
+								SPIR-V Tools Webpage
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Vulkan API
+						</td>
+						<td>
+							A cross-platform graphics and compute API.
+						</td>
+						<td>
+							<a href="https://www.vulkan.org/">
+								Vulkan Webpage
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</main>
+	
+		<footer>
+			<div class="footer_lists">
+				<div class="footer_page_list">
+					<ul class="footer_list">
+						<li>
+							Pages:
+						</li>
+						<li>
+							<a href="Index.html">
+								Engine Overview
+							</a>
+						</li>
+						<li>
+							<a href="Math_Engine.html">
+								Math Engine
+							</a>
+						</li>
+						<li>
+							<a href="Physics_Engine.html">
+								Physics Engine
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="footer_socials_list">
+					<ul class="footer_list">
+						<li>
+							Socials:
+						</li>
+						<li>
+							<a href="https://github.com/3Darragh">
+								Github
+							</a>
+						</li>
+						<li>
+							<a href="https://www.linkedin.com/in/darragh-mcconville/">
+								Linkedin
+							</a>
+						</li>
+						<li>
+							<a href="https://www.artstation.com/darragh">
+								Art Station
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="footer_contact_list">
+					<ul class="footer_list">
+						<li>
+							Contact:
+						</li>
+						<li>
+							Darragh McConville
+						</li>
+						<li>
+							267-863-0169
+						</li>
+						<li>
+							Havertown, PA
+						</li>
+						<li>
+							<a href="mailto:3Darragh@gmail.com">
+								3Darragh@gmail.com
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer_copyright">
+				&copy; 2025, Darragh McConville. All Rights Reserved.
+			</div>
+		</footer>
+		
+		<!-- Applies Theme -->
+		<script src="Theme.js" defer>
+		</script>
+  </body>
+</html>
