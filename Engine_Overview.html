@@ -11,28 +11,28 @@
 		
 		<meta charset="utf-8">
 		
-		<!-- Applies Theme -->
-		<script>
-        if (localStorage.getItem('theme') === 'dark') 
-		{
-            document.documentElement.classList.add('dark-mode');
-        }
+		<script defer src="Theme.js">
 		</script>
 	</head>
 	
 	<body>
 		<header>
 				<h1>
-					<a href="Index.html">
+					<a href="Engine_Overview.html">
 						The Plain Engine
 					</a>
 				</h1>
 		</header>
 		
 		<nav>
+			<div>
+				<label for="theme-toggle">Dark Mode</label>
+				<input type="checkbox" id="theme-toggle">
+			</div>
+			
 			<ul>
 				<li>
-					<a href="Index.html">
+					<a href="Engine_Overview.html">
 						Engine Overview
 					</a>
 				</li>
@@ -407,5 +407,5 @@
 		<!-- Applies Theme -->
 		<script src="Theme.js" defer>
 		</script>
-  </body>
+	</body>
 </html>
