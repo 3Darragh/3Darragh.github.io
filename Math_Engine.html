@@ -25,26 +25,27 @@
 				</h1>
 		</header>
 		
-		<nav>		
-			<ul>
-				<li>
-					<a href="Engine_Overview.html">
-						Engine Overview
-					</a>
-				</li>
-				<li>
-					<a href="Math_Engine.html">
-						Math Engine
-					</a>
-				</li>
-				<li>
-					<a href="Physics_Engine.html">
-						Physics Engine
-					</a>
-				</li>
-			</ul>
-			
-			<div class="Theme">
+		<nav>
+			<div class="nav_links">
+				<ul>
+					<li>
+						<a href="Engine_Overview.html">
+							Engine Overview
+						</a>
+					</li>
+					<li>
+						<a href="Math_Engine.html">
+							Math Engine
+						</a>
+					</li>
+					<li>
+						<a href="Physics_Engine.html">
+							Physics Engine
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="nav_theme_toggle">
 				<label for="theme-toggle">
 					Toggle Theme
 				</label>
@@ -64,6 +65,10 @@
 			<h2>
 				What are the different types?
 			</h2>
+			
+			<p>
+				Information on types.
+			</p>
 			
 			<table>
 				<thead>
@@ -89,62 +94,515 @@
 				<tbody>
 					<tr>
 						<td>
-							Vec2.
+							Vec2
 						</td>
 						<td>
-							8 Bytes.
+							8 Bytes
 						</td>
 						<td>
-							4 Bytes.
+							4 Bytes
 						</td>
 						<td>
-							2 Floats.
+							2 Floats
 						</td>
 						<td>
-							Two Dimensional Non-Scalable Vector.
+							Two Dimensional Vector
 						</td>
 						<td>
-							Euclidian Space Only.
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Vec3.
-						</td>
-						<td>
-							12 Bytes.
-						</td>
-						<td>
-							4 Bytes.
-						</td>
-						<td>
-							3 Floats.
-						</td>
-						<td>
-							Two Dimensional Scalable Vector.
-						</td>
-						<td>
-							Euclidian and Homogeneous Space.
+							Euclidian Space Only
 						</td>
 					</tr>
 					<tr>
 						<td>
-							Vec3.
+							Vec3
 						</td>
 						<td>
-							12 Bytes.
+							12 Bytes
 						</td>
 						<td>
-							4 Bytes.
+							4 Bytes
 						</td>
 						<td>
-							3 Floats.
+							3 Floats
 						</td>
 						<td>
-							Two Dimensional Scalable Vector.
+							Two Dimensional Homogeneous Vector
 						</td>
 						<td>
-							Euclidian and Homogeneous Space.
+							Euclidian and Homogeneous Space
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Vec4
+						</td>
+						<td>
+							16 Bytes
+						</td>
+						<td>
+							4 Bytes
+						</td>
+						<td>
+							4 Floats
+						</td>
+						<td>
+							Three Dimensional Homogeneous Vector
+						</td>
+						<td>
+							Euclidian and Homogeneous Space
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Mat2
+						</td>
+						<td>
+							16 Bytes
+						</td>
+						<td>
+							4 Bytes
+						</td>
+						<td>
+							4 Floats
+						</td>
+						<td>
+							Two by Two Square Matrix
+						</td>
+						<td>
+							Euclidian Space Only
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Mat3
+						</td>
+						<td>
+							36 Bytes
+						</td>
+						<td>
+							4 Bytes
+						</td>
+						<td>
+							9 Floats
+						</td>
+						<td>
+							Three by Three Square Matrix
+						</td>
+						<td>
+							Euclidian and Homogeneous Space
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Mat4
+						</td>
+						<td>
+							64 Bytes
+						</td>
+						<td>
+							4 Bytes
+						</td>
+						<td>
+							16 Floats
+						</td>
+						<td>
+							Four by Four Square Matrix
+						</td>
+						<td>
+							Euclidian and Homogeneous Space
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Mat2x3
+						</td>
+						<td>
+							24 Bytes
+						</td>
+						<td>
+							4 Bytes
+						</td>
+						<td>
+							6 Floats
+						</td>
+						<td>
+							Two by Three Matrix
+						</td>
+						<td>
+							Primarilly Homogeneous Space
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Mat3x4
+						</td>
+						<td>
+							48 Bytes
+						</td>
+						<td>
+							4 Bytes
+						</td>
+						<td>
+							12 Floats
+						</td>
+						<td>
+							Three by Four Matrix
+						</td>
+						<td>
+							Primarilly Homogeneous Space
+						</td>
+					</tr>
+					<tr>
+						<td>
+							Quat
+						</td>
+						<td>
+							64 Bytes
+						</td>
+						<td>
+							16 Bytes
+						</td>
+						<td>
+							4 Floats
+						</td>
+						<td>
+							Four Element Quaternion
+						</td>
+						<td>
+							Euclidian and Homogeneous Space
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<h3>
+				Overloaded Operators
+			</h3>
+			
+			<p>
+				Explain why some things are operators and others (component multiplication, cross products, component division) aren't.
+			</p>
+			
+			<table>
+				<thead>
+					<th>
+						Symbol:
+					</th>
+					<th>
+						Operation:
+					</th>
+					<th>
+						Return Type:
+					</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							==
+						</td>
+						<td>
+							Bool Equality Check
+						</td>
+						<td>
+							Boolean
+						</td>
+					</tr>
+					<tr>
+						<td>
+							!=
+						</td>
+						<td>
+							Bool Inequality Check
+						</td>
+						<td>
+							Boolean
+						</td>
+					</tr>
+					<tr>
+						<td>
+							-
+						</td>
+						<td>
+							Negation
+						</td>
+						<td>
+							Vectors, Matrices, Quaternions
+						</td>
+					</tr>
+					<tr>
+						<td>
+							+
+						</td>
+						<td>
+							Addition
+						</td>
+						<td>
+							Vectors, Matrices, Quaternions
+						</td>
+					</tr>
+					<tr>
+						<td>
+							+=
+						</td>
+						<td>
+							Addition Update
+						</td>
+						<td>
+							Void
+						</td>
+					</tr>
+					<tr>
+						<td>
+							-
+						</td>
+						<td>
+							Subtraction
+						</td>
+						<td>
+							Vectors, Matrices
+						</td>
+					</tr>
+					<tr>
+						<td>
+							-=
+						</td>
+						<td>
+							Subtraction Update
+						</td>
+						<td>
+							Void
+						</td>
+					</tr>
+					<tr>
+						<td>
+							*
+						</td>
+						<td>
+							Dot Product Operator
+						</td>
+						<td>
+							Float
+						</td>
+					</tr>
+					<tr>
+						<td>
+							*
+						</td>
+						<td>
+							Scalar Multiplication
+						</td>
+						<td>
+							Vectors, Matrices, Quaternions
+						</td>
+					</tr>
+					<tr>
+						<td>
+							*=
+						</td>
+						<td>
+							Scalar Multiplication Update
+						</td>
+						<td>
+							Void
+						</td>
+						<tr>
+						<td>
+							*
+						</td>
+						<td>
+							Hamilton Product
+						</td>
+						<td>
+							Quaternions
+						</td>
+					</tr>
+					<tr>
+						<td>
+							*=
+						</td>
+						<td>
+							Hamilton Product Update
+						</td>
+						<td>
+							Void
+						</td>
+					</tr>
+					<tr>
+						<td>
+							/
+						</td>
+						<td>
+							Scalar Division
+						</td>
+						<td>
+							Vectors, Matrices
+						</td>
+					</tr>
+					<tr>
+						<td>
+							/=
+						</td>
+						<td>
+							Scalar Division Update
+						</td>
+						<td>
+							Void
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			<h3>
+				Universal Functions
+			</h3>
+			
+			<p>
+				Explain why these functions are universal and exist across all types.
+			</p>
+			
+			<table>
+				<thead>
+					<th>
+						Function Name:
+					</th>
+					<th>
+						Description:
+					</th>
+					<th>
+						Return Type:
+					</th>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							division()
+						</td>
+						<td>
+							Component divides two type values.
+						</td>
+						<td>
+							Vector, Matrix, Quaternion
+						</td>
+					</tr>
+					<tr>
+						<td>
+							division_update()
+						</td>
+						<td>
+							Component divides and updates two type values.
+						</td>
+						<td>
+							Void
+						</td>
+					</tr>
+					<tr>
+						<td>
+							get_component()
+						</td>
+						<td>
+							Returns a component from a custom type.
+						</td>
+						<td>
+							Float
+						</td>
+					</tr>
+					<tr>
+						<td>
+							is_nan()
+						</td>
+						<td>
+							Checks if any components are NaN.
+						</td>
+						<td>
+							Boolean
+						</td>
+					</tr>
+					<tr>
+						<td>
+							max_component()
+						</td>
+						<td>
+							Returns the largest component of the type.
+						</td>
+						<td>
+							Float
+						</td>
+					</tr>
+					<tr>
+						<td>
+							min_component()
+						</td>
+						<td>
+							Returns the smallest component of the type.
+						</td>
+						<td>
+							Float
+						</td>
+					</tr>
+					<tr>
+						<td>
+							multiplication()
+						</td>
+						<td>
+							Component multiplies two type values.
+						</td>
+						<td>
+							Vector, Matrix, Quaternion
+						</td>
+					</tr>
+					<tr>
+						<td>
+							multiplication_update()
+						</td>
+						<td>
+							Component multiplies and updates two type values.
+						</td>
+						<td>
+							Void
+						</td>
+					</tr>
+					<tr>
+						<td>
+							negate_update()
+						</td>
+						<td>
+							Finds the negation of a custom type.
+						</td>
+						<td>
+							Void
+						</td>
+					</tr>
+					<tr>
+						<td>
+							set()
+						</td>
+						<td>
+							Sets the type values.
+						</td>
+						<td>
+							Void
+						</td>
+					</tr>
+					<tr>
+						<td>
+							set_component()
+						</td>
+						<td>
+							Sets a singular type value.
+						</td>
+						<td>
+							Void
+						</td>
+					</tr>
+					<tr>
+						<td>
+							swap_component()
+						</td>
+						<td>
+							Swaps a two floats within a custom type.
+						</td>
+						<td>
+							Void
 						</td>
 					</tr>
 				</tbody>
