@@ -88,47 +88,110 @@ nav
 	padding-bottom: 0.25em;
 	padding-left: 3.25em;
 	padding-top: 0.25em;
-	text-align: left;
+	
 }
 
-nav ul 
+.nav_links
 {
-    display: flex;
+	display: flex;
+}
+
+.nav_links ul
+{
+	display: flex;
 	gap: 1em;
     list-style-type: none;
     margin: 0;
     padding: 0;
+	text-align: left;
 }
 
-nav li 
+.nav_links li 
 {
     margin: 0;
 }
 
-nav a 
+.nav_links a 
 { 
 	text-decoration: none; 
 }
 
-a:link
+.nav_links a:link
 {
 	color: #447ED5;
 }
 
-a:visited
+.nav_links a:visited
 {
 	color: #447ED5;
 }
 
-a:hover
+.nav_links a:hover
 {
 	color: #3664AA;
+}
+
+.nav_theme_toggle 
+{
+	color: var(--text_color);
+    display: flex;
+	align-items: center;
+    gap: 0.5em;
+	padding-right: 4.5em;
+}
+
+/* Switch Styles */
+.switch 
+{
+    position: relative;
+    display: inline-block;
+    width: 34px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--text_color);
+    transition: 0.4s;
+    border-radius: 20px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #447ED5;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #var(--background_color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(14px);
 }
 
 /* Main and Text Elements */
 main
 {
 	flex: 1;
+	font-size: 110%;
 	padding-left: 3.5em;
 	padding-right: 3.5em;
 }
@@ -150,6 +213,26 @@ p
 	color: var(--text_color);
 	font-family: Arial, Helvetica, sans-serif;
 	padding-right: 2em;
+}
+
+a 
+{ 
+	text-decoration: none; 
+}
+
+a:link
+{
+	color: #447ED5;
+}
+
+a:visited
+{
+	color: #447ED5;
+}
+
+a:hover
+{
+	color: #3664AA;
 }
 
 /* Table Elements */
