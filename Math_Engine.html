@@ -7,8 +7,8 @@
 			The Plain Engine
 		</title>
 		
+		<link rel="stylesheet" href="Divisions.css">
 		<link rel="stylesheet" href="Engine.css">
-		<link rel="stylesheet" href="Math_Engine.css">
 		<link rel="stylesheet" href="Theme.css">
 		
 		<meta charset="utf-8">
@@ -76,26 +76,28 @@
 			<h2>
 				What is a Math Engine?
 			</h2>
+			<div class="paragraph">
+				<p>
+					&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+					The math engine is the code that does all of the mathematical equations needed for the rest of the engine. 
+					This encompasses traditional math, object transformations (positioning, scale, shape, rotation, ... ),
+					mathematical utilities (determinants, decomposition, inversions, normalization, ... ) and more niche
+					applications catered for physics and rendering. Without the math engine, basic manipulation of objects
+					would not be achievable, making it the backbone of the entire project. This page will document all types,
+					operators, functions, and references used in the math engine.
+				</p>
+			</div>
 			
-			<p>
-				The math engine is the code that does all of the mathematical equations needed for the rest of the engine. 
-				This encompasses traditional math, object transformations (positioning, scale, shape, rotation, ... ),
-				mathematical utilities (determinants, decomposition, inversions, normalization, ... ) and more niche
-				applications catered for physics and rendering. Without the math engine, basic manipulation of objects
-				would not be achievable, making it the backbone of the entire project. This page will document all types,
-				operators, functions, and references used in the math engine.
-			</p>
-			
-			<div class="table_wrapper">
-				<div class="table_container">
+			<div class="table_row">
+				<div class="table">
 					<h2>
-						What are the different types?
+						Types
 					</h2>
 					
 					<p>
 						There are three different math types that represents objects and transformations within the engine: vectors, matrices, and quaternions. 
 						All aspects of the math and physics engine rely primarilly on these three types.
-					</p>	
+					</p>
 					
 					<ul class="main_bullet_points"> 
 						<li>
@@ -132,6 +134,66 @@
 						</ul>
 						</li>
 					</ul>
+					
+				</div>
+				<div class="table">
+					<h2>
+						Overloaded Operators
+					</h2>
+				
+					<p>
+						Operators are chosen for the types if they are used frequently and light weight, as they need as few computations as possible while maintaining readability to those reading over the code.
+						Below is a list of common operators that are excluded, and a table of operators that are included.
+					</p>
+					
+					<ul class="main_bullet_points"> 
+						<li>
+							Component Wise Multiplication and Division:
+							<ul class="sub_bullet_points">
+								<li>
+									Too uncommon and they would have to share the same symbol as scalar operators.
+								</li>
+							</ul>
+						</li>
+						<li>
+							Matrix Multiplication:
+							<ul class="sub_bullet_points">
+								<li>
+									Used frequently, but requires up to 64 multiplications and 48 additions.
+								</li>
+							</ul>
+						</li>
+						<li>
+							Quaternion Scalar Divison:
+							<ul class="sub_bullet_points">
+								<li>
+									Quaternions have no use for division besides converting to euclidian space.
+								</li>
+							</ul>
+						</li>
+						<li>
+							Quaternion Subtraction:
+							<ul class="sub_bullet_points">
+								<li>
+									Sparely for comparisons only, so not worth creating an operator for.
+								</li>
+							</ul>
+						</li>
+						<li>
+							Vector Cross Product:
+							<ul class="sub_bullet_points">
+								<li>
+									Is common and inexpensive, but would have to share the same symbol as the dot product.
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+					
+			<div class="table_row">
+				<div class="table">
+					
 					
 					<table>
 						<thead>
@@ -339,59 +401,7 @@
 					</table>
 				</div>
 			
-				<div class="table_container">
-				<h2>
-					Overloaded Operators
-				</h2>
-				
-				<p>
-					Operators are chosen for the types if they are used frequently and light weight, as they need as few computations as possible while maintaining readability to those reading over the code.
-					Below is a list of common operators that are excluded, and a table of operators that are included.
-				</p>
-				
-				<ul class="main_bullet_points"> 
-						<li>
-							Component Wise Multiplication and Division:
-							<ul class="sub_bullet_points">
-								<li>
-									Too uncommon and they would have to share the same symbol as scalar operators.
-								</li>
-							</ul>
-						</li>
-						<li>
-							Matrix Multiplication:
-							<ul class="sub_bullet_points">
-								<li>
-									Used frequently, but requires up to 64 multiplications and 48 additions.
-								</li>
-							</ul>
-						</li>
-						<li>
-							Quaternion Scalar Divison:
-							<ul class="sub_bullet_points">
-								<li>
-									Quaternions have no use for division besides converting to euclidian space.
-								</li>
-							</ul>
-						</li>
-						<li>
-							Quaternion Subtraction:
-							<ul class="sub_bullet_points">
-								<li>
-									Sparely for comparisons only, so not worth creating an operator for.
-								</li>
-							</ul>
-						</li>
-						<li>
-							Vector Cross Product:
-							<ul class="sub_bullet_points">
-								<li>
-									Is common and inexpensive, but would have to share the same symbol as the dot product.
-								</li>
-							</ul>
-						</li>
-					</ul>
-				
+				<div class="table">
 				<table>
 					<thead>
 						<th>
@@ -564,15 +574,46 @@
 			</div>
 		</div>
 		
-		<div class="table_wrapper">
-				<div class="table_container">
+		<h2>
+			Functions
+		</h2>
+		
+		<div class="paragraph">
+			<p>
+				Math functions take up the bulk of the math engine, with over 200 functions excluding any multiples across types.
+				Because of this quantity, this section will be split across four tables with only the most important functions listed.
+				All universal functions are listed, which are functions that maintain their name and function across all types.
+				For type specific functions, only a handful are listed, with others being excluded to the high quantity of functions.
+				Some of the excluded functions include:
+			</p>
+		</div>
+		
+		<ul class="main_bullet_points"> 
+			<li>
+				Boolean Checks.
+			</li>
+			<li>
+				Decomposition Functions.
+			</li>
+			<li>
+				Matrix Helper Functions.
+			</li>
+			<li>
+				Squared Comparison Functions.
+			</li>
+			<li>
+				Void Update Functions.
+			</li>
+			<li>
+				Type Conversion Functions.
+			</li>
+		</ul>
+		
+		<div class="table_row">
+			<div class="table">
 				<h3>
 					Universal Functions
 				</h3>
-		
-				<p>
-					Explain why these functions are universal and exist across all types.
-				</p>
 					
 				<table>
 					<thead>
@@ -615,7 +656,7 @@
 							</td>
 							<td>
 								Returns a component from a custom type.
-								td>
+							</td>
 							<td>
 								Float
 							</td>
@@ -723,7 +764,7 @@
 				</table>
 			</div>
 			
-			<div class="table_container">
+			<div class="table">
 				<h3>
 					Important Matrix Functions
 				</h3>
@@ -736,94 +777,151 @@
 						<th>
 							Description:
 						</th>
+						<th>
+							Return Type:
+						</th>
 					</thead>
 					<tbody>
 						<tr>
 							<td>
-								determinant
+								determinant()
 							</td>
 							<td>
 								Returns the matrix determinant.
 							</td>
+							<td>
+								Float
+							</td>
 						</tr>
 						<tr>
 							<td>
-								eigenvalues
+								eigenvalues()
 							</td>
 							<td>
 								Returns the eigenvalues of the matrix.
 							</td>
+							<td>
+								Float
+							</td>
 						</tr>
 						<tr>
 							<td>
-								eigenvector
+								eigenvector()
 							</td>
 							<td>
 								Returns the eigenvectors of the matrix.
 							</td>
+							<td>
+								Vector
 						</tr>
 						<tr>
 							<td>
-								inverse
+								euler_transform()
+							</td>
+							<td>
+								Rotates the matrix along each axis individually.
+							</td>
+							<td>
+								Matrix
+							</td>
+						</tr>
+						<tr>
+							<td>
+								inverse()
 							</td>
 							<td>
 								Finds the inverse of the matrix.
 							</td>
+							<td>
+								Matrix
+							</td>
 						</tr>
 						<tr>
 							<td>
-								matrix_multiplication
+								matrix_multiplication()
 							</td>
 							<td>
 								Multiplies two matrices.
 							</td>
+							<td>
+								Matrix
+							</td>
 						</tr>
 						<tr>
 							<td>
-								pivot
+								pivot()
 							</td>
 							<td>
 								Rotates the matrix around the pivot point.
 							</td>
+							<td>
+								Matrix
+							</td>
 						</tr>
 						<tr>
 							<td>
-								rotate
+								rotate()
 							</td>
 							<td>
 								Rotates the matrix around the given vector.
 							</td>
+							<td>
+								Matrix
+							</td>
 						</tr>
 						<tr>
 							<td>
-								rank
+								rank()
 							</td>
 							<td>
 								Finds the rank of the matrix.
 							</td>
-						</tr>
-						<tr>
 							<td>
-								scale
-							</td>
-							<td>
-								Scales the matrix by the given vector.
+								Float
 							</td>
 						</tr>
 						<tr>
 							<td>
-								translate
+								rank()
+							</td>
+							<td>
+								Finds the rank of the matrix.
+							</td>
+							<td>
+								Float
+							</td>
+						</tr>
+						<tr>
+							<td>
+								reflect_across_vector()
+							</td>
+							<td>
+								Reflects the matrix across the given vector.
+							</td>
+							<td>
+								Matrix
+							</td>
+						</tr>
+						<tr>
+							<td>
+								translate()
 							</td>
 							<td>
 								Moves the matrix along the given vector.
 							</td>
+							<td>
+								Matrix
+							</td>
 						</tr>
 						<tr>
 							<td>
-								transpose
+								transpose()
 							</td>
 							<td>
 								Swaps the matrix rows and columns.
+							</td>
+							<td>
+								Matrix
 							</td>
 						</tr>
 					</tbody>
@@ -831,8 +929,8 @@
 			</div>
 		</div>	
 			
-		<div>
-			<div>
+		<div class="table_row">
+			<div class="table">
 				<h3>
 					Important Vector Functions
 				</h3>
@@ -844,70 +942,97 @@
 						<th>
 							Description:
 						</th>
+						<th>
+							Return Type:
+						</th>
 					</thead>
 					<tbody>
 						<tr>
 							<td>
-								angle_between
+								angle_between()
 							</td>
 							<td>
 								Returns the angle between two vectors.
 							</td>
+							<td>
+								Float
+							</td>
 						</tr>
 						<tr>
 							<td>
-								cross_product
+								cross_product()
 							</td>
 							<td>
 								Finds the cross product of two vectors.
 							</td>
+							<td>
+								Vector
+							</td>
 						</tr>
 						<tr>
 							<td>
-								distance_between
+								distance_between()
 							</td>
 							<td>
 								Returns the distance between two vectors.
 							</td>
+							<td>
+								Float
+							</td>
 						</tr>
 						<tr>
 							<td>
-								normalize
+								normalize()
 							</td>
 							<td>
 								Sets the vector magnitude to one.
 							</td>
+							<td>
+								Vector
+							</td>
 						</tr>
 						<tr>
 							<td>
-								outer_product
+								outer_product()
 							</td>
 							<td>
 								Multiplies two vectors component wise.
 							</td>
+							<td>
+								Vector
+							</td>
 						</tr>
 						<tr>
 							<td>
-								project_vector
+								project_vector()
 							</td>
 							<td>
 								Projects the vector onto another vector.
 							</td>
+							<td>
+								Vector
+							</td>
 						</tr>
 						<tr>
 							<td>
-								real_magnitude
+								real_magnitude()
 							</td>
 							<td>
 								Returns the magnitude of the vector.
 							</td>
+							<td>
+								Float
+							</td>
 						</tr>
 						<tr>
 							<td>
-								to_euclidian
+								to_euclidian()
 							</td>
 							<td>
 								Converts the vector from homogenous to euclidian space.
+							</td>
+							<td>
+								Vector
 							</td>
 						</tr>
 					</tbody>
@@ -916,10 +1041,10 @@
 			
 			
 			
-			<div>
+			<div class="table">
 				<h3>
-				Important Quaternion Functions
-			</h3>
+					Important Quaternion Functions
+				</h3>
 				<table>
 					<thead>
 						<th>
@@ -928,70 +1053,97 @@
 						<th>
 							Description:
 						</th>
+						<th>
+							Return Type:
+						</th>
 					</thead>
 					<tbody>
 						<tr>
 							<td>
-								conjugate
+								conjugate()
 							</td>
 							<td>
 								Negates the quaternion's vector component.
 							</td>
+							<td>
+								Quaternion
+							</td>
 						</tr>
 						<tr>
 							<td>
-								dot_product
+								dot_product()
 							</td>
 							<td>
 								Returns the dot product of two quaternions.
 							</td>
+							<td>
+								Float
+							</td>
 						</tr>
 						<tr>
 							<td>
-								inverse
+								inverse()
 							</td>
 							<td>
 								Finds the inverse of the quaternion.
 							</td>
+							<td>
+								Quaternion
+							</td>
 						</tr>
 						<tr>
 							<td>
-								normalize
+								normalize()
 							</td>
 							<td>
 								Sets the quaternion magnitude to one.
 							</td>
+							<td>
+								Quaternion
+							</td>
 						</tr>
 						<tr>
 							<td>
-								real_magnitude
+								real_magnitude()
 							</td>
 							<td>
 								Returns the magnitude of the vector.
 							</td>
+							<td>
+								Float
+							</td>
 						</tr>
 						<tr>
 							<td>
-								rotate_vector
+								rotate_vector()
 							</td>
 							<td>
 								Rotates a vector by the quaternion.
 							</td>
+							<td>
+								Vector
+							</td>
 						</tr>
 						<tr>
 							<td>
-								slerp
+								slerp()
 							</td>
 							<td>
 								Performs spherical linear interpolation.
 							</td>
+							<td>
+								Quaternion
+							</td>
 						</tr>
 						<tr>
 							<td>
-								to_euler_angles
+								to_euler_angles()
 							</td>
 							<td>
 								Returns pitch, roll, and yaw values.
+							</td>
+							<td>
+								Vector
 							</td>
 						</tr>
 					</tbody>
