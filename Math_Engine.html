@@ -9,15 +9,25 @@
 		
 		<link rel="stylesheet" href="Engine.css">
 		<link rel="stylesheet" href="Math_Engine.css">
+		<link rel="stylesheet" href="Theme.css">
 		
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<script>
+			if (localStorage.getItem('theme') === 'dark') 
+			{
+				document.documentElement.classList.add('dark-theme');
+			}	
+		</script>
 
-		<!-- Applies Theme -->
 		<script defer src="Theme.js">
 		</script>
+		
 	</head>
 	
 	<body>
+		
 		<header>
 				<h1>
 					<a href="Engine_Overview.html">
@@ -68,7 +78,12 @@
 			</h2>
 			
 			<p>
-				This is a Math Engine.
+				The math engine is the code that does all of the mathematical equations needed for the rest of the engine. 
+				This encompasses traditional math, object transformations (positioning, scale, shape, rotation, ... ),
+				mathematical utilities (determinants, decomposition, inversions, normalization, ... ) and more niche
+				applications catered for physics and rendering. Without the math engine, basic manipulation of objects
+				would not be achievable, making it the backbone of the entire project. This page will document all types,
+				operators, functions, and references used in the math engine.
 			</p>
 			
 			<div class="table_wrapper">
@@ -548,27 +563,28 @@
 				</table>
 			</div>
 		</div>
-				
-				<div>
-					<h3>
-						Universal Functions
-					</h3>
-			
-					<p>
-						Explain why these functions are universal and exist across all types.
-					</p>
+		
+		<div class="table_wrapper">
+				<div class="table_container">
+				<h3>
+					Universal Functions
+				</h3>
+		
+				<p>
+					Explain why these functions are universal and exist across all types.
+				</p>
 					
-					<table>
-						<thead>
-							<th>
-								Function Name:
-							</th>
-							<th>
-								Description:
-							</th>
-							<th>
-								Return Type:
-							</th>
+				<table>
+					<thead>
+						<th>
+							Function Name:
+						</th>
+						<th>
+							Description:
+						</th>
+						<th>
+							Return Type:
+						</th>
 					</thead>
 					<tbody>
 						<tr>
@@ -675,7 +691,7 @@
 								set()
 							</td>
 							<td>
-										Sets the type values.
+								Sets the type values.
 							</td>
 							<td>
 								Void
@@ -706,6 +722,329 @@
 					</tbody>
 				</table>
 			</div>
+			
+			<div class="table_container">
+				<h3>
+					Important Matrix Functions
+				</h3>
+				
+				<table>
+					<thead>
+						<th>
+							Function:
+						</th>
+						<th>
+							Description:
+						</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								determinant
+							</td>
+							<td>
+								Returns the matrix determinant.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								eigenvalues
+							</td>
+							<td>
+								Returns the eigenvalues of the matrix.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								eigenvector
+							</td>
+							<td>
+								Returns the eigenvectors of the matrix.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								inverse
+							</td>
+							<td>
+								Finds the inverse of the matrix.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								matrix_multiplication
+							</td>
+							<td>
+								Multiplies two matrices.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								pivot
+							</td>
+							<td>
+								Rotates the matrix around the pivot point.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								rotate
+							</td>
+							<td>
+								Rotates the matrix around the given vector.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								rank
+							</td>
+							<td>
+								Finds the rank of the matrix.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								scale
+							</td>
+							<td>
+								Scales the matrix by the given vector.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								translate
+							</td>
+							<td>
+								Moves the matrix along the given vector.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								transpose
+							</td>
+							<td>
+								Swaps the matrix rows and columns.
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>	
+			
+		<div>
+			<div>
+				<h3>
+					Important Vector Functions
+				</h3>
+				<table>
+					<thead>
+						<th>
+							Function:
+						</th>
+						<th>
+							Description:
+						</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								angle_between
+							</td>
+							<td>
+								Returns the angle between two vectors.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								cross_product
+							</td>
+							<td>
+								Finds the cross product of two vectors.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								distance_between
+							</td>
+							<td>
+								Returns the distance between two vectors.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								normalize
+							</td>
+							<td>
+								Sets the vector magnitude to one.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								outer_product
+							</td>
+							<td>
+								Multiplies two vectors component wise.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								project_vector
+							</td>
+							<td>
+								Projects the vector onto another vector.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								real_magnitude
+							</td>
+							<td>
+								Returns the magnitude of the vector.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								to_euclidian
+							</td>
+							<td>
+								Converts the vector from homogenous to euclidian space.
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			
+			
+			
+			<div>
+				<h3>
+				Important Quaternion Functions
+			</h3>
+				<table>
+					<thead>
+						<th>
+							Function:
+						</th>
+						<th>
+							Description:
+						</th>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								conjugate
+							</td>
+							<td>
+								Negates the quaternion's vector component.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								dot_product
+							</td>
+							<td>
+								Returns the dot product of two quaternions.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								inverse
+							</td>
+							<td>
+								Finds the inverse of the quaternion.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								normalize
+							</td>
+							<td>
+								Sets the quaternion magnitude to one.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								real_magnitude
+							</td>
+							<td>
+								Returns the magnitude of the vector.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								rotate_vector
+							</td>
+							<td>
+								Rotates a vector by the quaternion.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								slerp
+							</td>
+							<td>
+								Performs spherical linear interpolation.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								to_euler_angles
+							</td>
+							<td>
+								Returns pitch, roll, and yaw values.
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+			
+		<h2>
+			References and Sources
+		</h2>
+			
+		<ul class="main_bullet_points">
+			<li>
+				3D Math Primer for Graphics and Game Development
+				<ul class="sub_bullet_points">
+					<li>
+						Written by Fletcher Dunn and Ian Parberry
+					</li>
+					<li>
+							<a href="https://a.co/d/cvrRNyj">
+								Amazon Listing
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Mathematics for 3D Game Programming and Computer Graphics
+					<ul class="sub_bullet_points">
+						<li>
+							Written by Eric Lengyel
+						</li>
+						<li>
+							<a href="https://a.co/d/cgCUaPj">
+								Amazon Listing
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					Linear Algebra Done Right
+					<ul class="sub_bullet_points">
+						<li>
+							Written by Sheldon Axler
+						</li>
+						<li>
+							<a href="https://a.co/d/6a0S93P">
+								Amazon Listing
+							</a>
+						</li>
+					</ul>
+				</li>
+			</ul>
+			
 		</main>
 		
 		<footer>
@@ -780,9 +1119,5 @@
 				&copy; 2025, Darragh McConville. All Rights Reserved.
 			</div>
 		</footer>
-		
-		<!-- Applies Theme -->
-		<script src="Engine.js" defer>
-		</script>
 	</body>
 </html>
