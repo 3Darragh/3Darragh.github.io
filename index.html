@@ -7,19 +7,29 @@
 			The Plain Engine
 		</title>
 		
-		<link rel="stylesheet" href="Engine.css">
-		<link rel="stylesheet" href="Engine_Overview.css">
+		<link rel="stylesheet" href="classes.css">
+		<link rel="stylesheet" href="index.css">
+		<link rel="stylesheet" href="theme.css">
 		
 		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		
-		<script defer src="Theme.js">
+		<script>
+			if (localStorage.getItem('theme') === 'dark') 
+			{
+				document.documentElement.classList.add('dark-theme');
+			}	
 		</script>
+
+		<script defer src="theme.js">
+		</script>
+		
 	</head>
 	
 	<body>
 		<header>
 				<h1>
-					<a href="Engine_Overview.html">
+					<a href="index.html">
 						The Plain Engine
 					</a>
 				</h1>
@@ -29,18 +39,28 @@
 			<div class="nav_links">
 				<ul>
 					<li>
-						<a href="Engine_Overview.html">
+						<a href="index.html">
 							Engine Overview
 						</a>
 					</li>
 					<li>
-						<a href="Math_Engine.html">
+						<a href="math_engine.html">
 							Math Engine
 						</a>
 					</li>
 					<li>
-						<a href="Physics_Engine.html">
-							Physics Engine
+						<a href="physics_objects.html">
+							Physics Objects
+						</a>
+					</li>
+					<li>
+						<a href="collision_detection.html">
+							Collision Detection
+						</a>
+					</li>
+					<li>
+						<a href="collision_resolution.html">
+							Collision Resolution
 						</a>
 					</li>
 				</ul>
@@ -120,7 +140,7 @@
 			<p>
 				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
 				The Plain Engine has different build requirements depending on the applications use.
-			<p>
+			</p>
 			
 			<table>
 				<thead>
@@ -340,18 +360,28 @@
 							Pages:
 						</li>
 						<li>
-							<a href="Index.html">
+							<a href="index.html">
 								Engine Overview
 							</a>
 						</li>
 						<li>
-							<a href="Math_Engine.html">
+							<a href="math_engine.html">
 								Math Engine
 							</a>
 						</li>
 						<li>
-							<a href="Physics_Engine.html">
-								Physics Engine
+							<a href="physics_objects.html">
+								Physics Objects
+							</a>
+						</li>
+						<li>
+							<a href="collision_detection.html">
+								Collision Detection
+							</a>
+						</li>
+						<li>
+							<a href="collision_resolution.html">
+								Collision Resolution
 							</a>
 						</li>
 					</ul>
@@ -404,9 +434,5 @@
 				&copy; 2025, Darragh McConville. All Rights Reserved.
 			</div>
 		</footer>
-		
-		<!-- Applies Theme -->
-		<script src="Theme.js" defer>
-		</script>
 	</body>
 </html>
