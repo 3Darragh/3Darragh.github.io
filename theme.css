@@ -1,0 +1,83 @@
+:root 
+{
+    --background_color: #DADADA;
+    --text_color: #1D1D1D;
+    --nav_background: #EEEEEE;
+	--nav_border: #AAAAAA;
+}
+
+body.dark-theme 
+{
+    --background_color: #1D1D1D;
+    --text_color: #EEEEEE;
+    --nav_background: #333333;
+	--nav_border: #111111;
+}
+
+.slider
+{
+	background-color: var(--text_color);
+}
+
+input:checked + .slider 
+{
+  background-color: var(--text_color);
+}
+
+body
+{
+	background-color: var(--background_color);
+	color: var(--text_color);
+}
+
+nav 
+{ 
+	background-color: var(--nav_background);
+	border-bottom: 3px solid var(--nav_border);
+	color: var(--text_color);
+}
+
+.nav_theme_toggle 
+{
+	color: var(--text_color);
+}
+
+.theme_label 
+{
+	color: var(--text_color);
+}
+
+h1
+{
+	color: var(--background_color);
+}
+
+h2
+{
+	color: var(--text_color);
+}
+
+p
+{
+	color: var(--text_color);
+}
+
+table
+{
+	background-color: var(--nav_background);
+}
+
+tr, td
+{
+	color: var(--text_color);
+}
+
+ul.main_bullet_points 
+{
+	color: var(--text_color);
+}
+
+ul.sub_bullet_points
+{
+	color: var(--text_color);
+}
