@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+
+<html lang="en"> 
+
+	<head>
+		<title>
+			The Plain Engine
+		</title>
+		
+		<link rel="stylesheet" href="classes.css">
+		<link rel="stylesheet" href="index.css">
+		<link rel="stylesheet" href="theme.css">
+		
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<script>
+			if (localStorage.getItem('theme') === 'dark') 
+			{
+				document.documentElement.classList.add('dark-theme');
+			}	
+		</script>
+
+		<script defer src="theme.js">
+		</script>
+	</head>
+	
+	<body>
+		
+		<header>
+				<h1>
+					<a href="index.html">
+						The Plain Engine
+					</a>
+				</h1>
+		</header>
+		
+		<nav>
+			<div class="nav_links">
+				<ul>
+					<li>
+						<a href="index.html">
+							Engine Overview
+						</a>
+					</li>
+					<li>
+						<a href="math_engine.html">
+							Math Engine
+						</a>
+					</li>
+					<li>
+						<a href="physics_objects.html">
+							Physics Objects
+						</a>
+					</li>
+					<li>
+						<a href="collision_detection.html">
+							Collision Detection
+						</a>
+					</li>
+					<li>
+						<a href="collision_resolution.html">
+							Collision Resolution
+						</a>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="theme_label">
+				<label for="theme-toggle">
+						Toggle Theme:
+				</label>
+			</div>
+			
+			<div class="nav_theme_toggle">
+				<label class="switch">
+					<input type="checkbox" id="theme-toggle">
+					<span class="slider round">
+					</span>
+				</label>
+			</div>
+		</nav>
+		
+		<main>
+			<h2>
+				What is Collision Detection?
+			</h2>
+			<div class="paragraph">
+				<p>
+					&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+					Collision detection consists of the tests and processes to optimally detect if two volumes will collide,
+					when they will collide, and how they will collide. This involves determining if they are moving along any
+					path where they can collide, where on their path they could collide, and at what points they will collide.
+					To make these tests optimal for real time use, different structures and techniques are employed, including
+					bounding volumes, intersection tests, bounding volume hierarches, and spatitial partitioning structures. 
+					This section will give an overview on how each of these are implemented.
+				</p>
+			</div>
+			
+			<div class="table_row">
+				<div class="table">
+					<h2>
+						Bounding Volumes
+					</h2>
+					
+					<p>
+						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+						Bounding volumes (BVs) are simplified shapes that overlap every object in the scene. BVs are constructed
+						with math functions, instead of specific geometric points like meshes, so the engine can determine if the
+						two objects could be colliding with less resources. Since they completely overlap the objects, if two
+						bounding volumes are not overlapping, then the objects cannot overlap, and the test is performed far more
+						efficiently. BVs are chosen by how close they look to the object they are overlapping, and by how optimized
+						they are. Below is a table of all 3D BVs and how efficient they are. 2D BVs are excluded due to being mostly
+						the same but with less dimensions.
+					</p>
+			
+					<table>
+						<thead>
+							<tr>
+								<th>
+									Bounding Volume:
+								</th>
+								<th>
+									Description:
+								</th>
+								<th>
+									Efficiency:
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									Axis Aligned Bounding Box
+								</td>
+								<td>
+									A rectanglular prism that is not capable of rotation.
+								</td>
+								<td>
+									#1
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Convex Hull
+								</td>
+								<td>
+									A BV with verticies on at the meshes exterior points.
+								</td>
+								<td>
+									#12
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Cone
+								</td>
+								<td>
+									A spherical whose perimeter converges onto a point.
+								</td>
+								<td>
+									#8
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Circle Swept Sphere
+								</td>
+								<td>
+									A torus, or a sphere swept around a circular path.
+								</td>
+								<td>
+									#10
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Cylinder
+								</td>
+								<td>
+									A cylinder stemming from a vector and a radius.
+								</td>
+								<td>
+									#9
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Elipsoid
+								</td>
+								<td>
+									An elongated sphere measured in radians on all axes.
+								</td>
+								<td>
+									#4
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Infinite Cylinder
+								</td>
+								<td>
+									A cylinder with no end caps, stretching infinitely.
+								</td>
+								<td>
+									#6
+								</td>
+							</tr>
+							<tr>
+								<td>
+									k-Discrete Oriented Polytope
+								</td>
+								<td>
+									A BV constructed from a custom number of slabs.
+								</td>
+								<td>
+									#11
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Line Swept Sphere
+								</td>
+								<td>
+									A line swept sphere or a capsule.
+								</td>
+								<td>
+									#3
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Oriented Bounding Box
+								</td>
+								<td>
+									A rectangular prism capable of rotation.
+								</td>
+								<td>
+									#5
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Point Swept Sphere
+								</td>
+								<td>
+									A sphere, or a sphere swept across a point (stationary).
+								</td>
+								<td>
+									#2
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Rectangle Swept Sphere
+								</td>
+								<td>
+									A lozenge, or a sphere swept across a recangular path.
+								</td>
+								<td>
+									#7
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				<div class="table">
+					<h2>
+						Intersection tests
+					</h2>
+					
+					<p>
+						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+						After establishing all BVs in a scene, tests need to be performed to see if they are currently intersecting.
+						To do this, different tests are written for each combination of bounding volumes, as well as lines, segments,
+						rays, and planes. This results in 120 total intersections tests. Some can be copied over, like all tests on
+						cylinders can apply to infinite cylinders, but since cylinders need to test the cylinder caps and track it's 
+						length along a vector, creating a custom file for tests like this is more optimal as it has less bloat.
+						The list below compares three different intersection tests and lists when to use them.
+					</p>
+						
+					<ul class="main_bullet_points"> 
+						<li>
+							Seperating Axis Theorum:
+							<ul class="sub_bullet_points">
+								<li>
+									The seperating axis theorum (SAT) test asserts that if a plane can seperate two bounding volumes, 
+									then the objects are not intersecting. Since generating a plane is more expensive, we instead find 
+									the axis of the plane that seperates the objects.
+								</li>
+								<li>
+									The SAT test can be used on most BVs and is simple to code, but has some limitations. It cannot be
+									used on any object of infinite length or any concave object, so it cannot be used on infinite cylinders,
+									infinte cones, and circle swept spheres.
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="main_bullet_points"> 
+						<li>
+							Gilbert-Johnson-Keerthi Algorithm:
+							<ul class="sub_bullet_points">
+								<li>
+									The Gilbert-Johnson-Keerthi (GJK) algorithm builds a tetrahedron within the minkowski difference of the 
+									objects. If the origin of the coordinate space lies within this shape, the objects are intersecting. If
+									they are not colliding, the closest points to the origin are the closest points between the two objects.
+								</li>
+								<li>
+									The GJK algorithm can be used in many situations, like when the SAT test doesn't work, when you need to find
+									the closest points between two objects during intersection, when you don't want to rely on vertex or face
+									values, or when you plan to use the next algorith, the EPA test, afterwards.
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="main_bullet_points"> 
+						<li>
+							Expanding Polytope Algorithm:
+							<ul class="sub_bullet_points">
+								<li>
+									The Expanding Polytope Algorithm (EPA) test is used after the GJK algorithm concludes that objects are colliding.
+									It takes the tetrahedron formed by GJK and finds the intersection volume and other information that the GJK
+									cannot assertain.
+								</li>
+								<li>
+									The EPA test is used when more information is needed than just intersection status. This includes the intersection
+									normal for reflections, the contact point to apply forces at, or the pennetration depth to see how deep it intersects.
+								</li>
+							</ul>
+						</li>
+					</ul>
+					<ul class="main_bullet_points"> 
+						<li>
+							Sweep Test:
+							<ul class="sub_bullet_points">
+								<li>
+									When objects are moving at high speeds against static objects, the sweep test is used. Using shapecasts or ray casting, 
+									the test checks the objects trajectory over time to see if it will hit an object.
+								</li>
+								<li>
+									Sweep tests are done when the object is at risk of tunneling through other objects when other tests are used. Its also
+									used when the other objects in the scene are all static, as the sweep test works better against these.
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			<div class="negative_two_margin">
+				<div class="table_row">
+					<div class="table">
+						<h2>
+							Bounding Volume Hierarchies
+						</h2>
+						
+						<p>
+							&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+							Bounding volume hierachies (BVHs) are an acceleration structure that speeds up the detection system by ruling out large groups of 
+							objects that cannot be intersecting. Unlike intersection tests, which narrowly check for collisions between two objects, BVHs are
+							a broad phase structure that works by splitting the BVH into a tree with different types of nodes, and finding ways to exit the check 
+							early if there are no collisions.
+						</p>
+						
+						<ul class="main_bullet_points"> 
+							<li>
+								Leaf Nodes:
+								<ul class="sub_bullet_points">
+									<li>
+										Leaf nodes are the nodes that are at the bottom of the tree which represent each individual BV. If there the program does not
+										exit early, then potentially colliding root nodes are tested like traditional intersection tests. The BVH is constructed bottom
+										up, which means it starts with the leaf nodes and builds upwards to the top of the tree.
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<ul class="main_bullet_points"> 
+							<li>
+								Internal Nodes:
+								<ul class="sub_bullet_points">
+									<li>
+										A
+									</li>
+									<li>
+										B
+									</li>
+								</ul>
+							</li>
+						</ul>
+						<ul class="main_bullet_points"> 
+							<li>
+								Root Nodes:
+								<ul class="sub_bullet_points">
+									<li>
+										A
+									</li>
+									<li>
+										B
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+					
+					<div class="table">
+						<h2>
+							Spatial Partitioning Strategies
+						</h2>
+						
+						<p>
+							&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+							A
+						</p>
+						
+						<table>
+							<thead>
+								<tr>
+									<th>
+										A
+									</th>
+									<th>
+										B
+									</th>
+									<th>
+										C
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										1
+									</td>
+									<td>
+										2
+									</td>
+									<td>
+										3
+									</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+									<td>
+										4
+									</td>
+									<td>
+										5
+									</td>
+									<td>
+										6
+									</td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr>
+									<td>
+										7
+									</td>
+									<td>
+										8
+									</td>
+									<td>
+										9
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		
+			<h2>
+				References and Sources
+			</h2>
+			
+			<div class="citation_row">
+				<div class="citations">
+					<ul class="main_bullet_points">
+						<li>
+							Game Physics Engine Development Chapters 12 - 13
+							<ul class="sub_bullet_points">
+								<li>
+									Written by Ian Millington
+								</li>
+								<li>
+									<a href="https://a.co/d/40XGmry">
+										Amazon Listing
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							Real-Time Collision Detection
+							<ul class="sub_bullet_points">
+								<li>
+									Written by Christer Ericson
+								</li>
+								<li>
+									<a href="https://a.co/d/boszbUc">
+										Amazon Listing
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							Real-Time Rendering Chapter 25
+							<ul class="sub_bullet_points">
+								<li>
+									Written by Thomas Akenine-Moller, Eric Haines, Naty Hoffman, Angelo Pesce, Michal Iwanicki, and Sebastien Hillaire
+								</li>
+								<li>
+									<a href="https://www.realtimerendering.com/Real-Time_Rendering_4th-Collision_Detection.pdf">
+										Chapter 25 Free PDF
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				
+				<div class="source_images">
+					<img src="https://m.media-amazon.com/images/I/71-xbxUxmTL.jpg" alt="Cover of Game Physics Engine Development" class="image_size">
+					<img src="https://m.media-amazon.com/images/I/51gi1cxLpBL._AC_UF1000,1000_QL80_.jpg" alt="Cover of Real-Time Collision Detection" class="image_size">
+					<img src="https://m.media-amazon.com/images/I/81E9-e9Ek+L.jpg" alt="Cover of Real-Time Rendering Chapter 25" class="image_size">
+				</div>
+			</div>
+		</main>
+		
+		<footer>
+			<div class="footer_lists">
+				<div class="footer_page_list">
+					<ul class="footer_list">
+						<li>
+							Pages:
+						</li>
+						<li>
+							<a href="index.html">
+								Engine Overview
+							</a>
+						</li>
+						<li>
+							<a href="math_engine.html">
+								Math Engine
+							</a>
+						</li>
+						<li>
+							<a href="physics_objects.html">
+								Physics Objects
+							</a>
+						</li>
+						<li>
+							<a href="collision_detection.html">
+								Collision Detection
+							</a>
+						</li>
+						<li>
+							<a href="collision_resolution.html">
+								Collision Resolution
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="footer_socials_list">
+					<ul class="footer_list">
+						<li>
+							Socials:
+						</li>
+						<li>
+							<a href="https://github.com/3Darragh">
+								Github
+							</a>
+						</li>
+						<li>
+							<a href="https://www.linkedin.com/in/darragh-mcconville/">
+								Linkedin
+							</a>
+						</li>
+						<li>
+							<a href="https://www.artstation.com/darragh">
+								Art Station
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="footer_contact_list">
+					<ul class="footer_list">
+						<li>
+							Contact:
+						</li>
+						<li>
+							Darragh McConville
+						</li>
+						<li>
+							267-863-0169
+						</li>
+						<li>
+							Havertown, PA
+						</li>
+						<li>
+							<a href="mailto:3Darragh@gmail.com">
+								3Darragh@gmail.com
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer_copyright">
+				&copy; 2025, Darragh McConville. All Rights Reserved.
+			</div>
+		</footer>
+	</body>
+</html>
