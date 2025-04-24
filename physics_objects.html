@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html lang="en"> 
+
+	<head>
+		<title>
+			The Plain Engine
+		</title>
+		
+		<link rel="stylesheet" href="classes.css">
+		<link rel="stylesheet" href="index.css">
+		<link rel="stylesheet" href="theme.css">
+		
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<script>
+			if (localStorage.getItem('theme') === 'dark') 
+			{
+				document.documentElement.classList.add('dark-theme');
+			}	
+		</script>
+
+		<script defer src="theme.js">
+		</script>
+		
+	</head>
+	
+	<body>
+		<header>
+				<h1>
+					<a href="index.html">
+						The Plain Engine
+					</a>
+				</h1>
+		</header>
+		
+		<nav>
+			<div class="nav_links">
+				<ul>
+					<li>
+						<a href="index.html">
+							Engine Overview
+						</a>
+					</li>
+					<li>
+						<a href="math_engine.html">
+							Math Engine
+						</a>
+					</li>
+					<li>
+						<a href="physics_objects.html">
+							Physics Objects
+						</a>
+					</li>
+					<li>
+						<a href="collision_detection.html">
+							Collision Detection
+						</a>
+					</li>
+					<li>
+						<a href="collision_resolution.html">
+							Collision Resolution
+						</a>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="theme_label">
+				<label for="theme-toggle">
+						Toggle Theme:
+				</label>
+			</div>
+			
+			<div class="nav_theme_toggle">
+				<label class="switch">
+					<input type="checkbox" id="theme-toggle">
+					<span class="slider round">
+					</span>
+				</label>
+			</div>
+		</nav>
+		
+		<main>
+			<h2>
+				What are Physics Objects?
+			</h2>
+			<div class="paragraph">
+				<p>
+					&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+					Physics objects are any object or mesh which are acted upon by the physics engine. This is split into two 
+					categories, rigid bodies and mass aggregates. Rigid bodies are objects which are not deformable and capable of 
+					rotation, while mass aggregates are the opposite, being moldable but incapable of rotation. While they seem 
+					simple in their features and differences, they contain many nuanced complexities which make them useful in 
+					different purposes.
+				</p>
+			</div>
+			
+			<div class="table_row">
+				<div class="table">
+					<h2>
+						Rigid Bodies
+					</h2>
+					
+					<p>
+						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+						Rigid bodies are solid, non-deformable, rotatable objects with a fixed structure. This means that opposite
+						vertices along an edge remain a fixed distance apart, and same for edges along a face. These fixed distances
+						allow them to be easier to compute for all aspects of collision detection, as if the bounding volume can
+						rotate, then it never needs to be recalculated, unlike with mass aggregates. Rotation is applied to rigid
+						bodies with quaternions, which add a lot of complexity in how they work. Below is a list of different ways
+						rigid bodies rotate within the engine.
+					</p>
+					
+					<ul class="main_bullet_points"> 
+						<li>
+							Torque
+							<ul class="sub_bullet_points">
+								<li>
+									Torque is the rotational force applied onto a rigid body at some distance from the bodies center.
+									It's found by multiplying a vector representing the objects force, by the vector representing the
+									objects center and the position of applied force.
+								</li>
+								<li>
+									Torque is directly responsible for finding the objects angular velocity, determined by the objects
+									moment of inertia and mass. Torque is cumulative, and updates angular velocity every frame, even if
+									there is no change in torque.
+							</ul>
+						</li>
+						<li>
+							Angular Velocity:
+							<ul class="sub_bullet_points">
+								<li>
+									Angular velocity is the rigid bodies rate and axis of rotation. It consists of just one Vec4 whose direction
+									represents the rotation axis and the magnitude represents the angular speed. Unlike torque which applies
+									the force directly to the rigid body, angular velocity applies velocity to the inertia tensor.
+								</li>
+								<li>
+									As torque contributes to angular velocity, angular velocity contributes to the bodies orientation. It is
+									integrated upon over time and converted to a quaternion, which has the same struct as a Vec4. Angular velocity
+									is not applied every frame, unlike torque, as it's only applied when the orientation needs to change.
+							</ul>
+						</li>
+						<li>
+							Orientation:
+							<ul class="sub_bullet_points">
+								<li>
+									Orientation is the current rotational state of the rigid body relative to it's default position in the world.
+									It is represented by a quaternion, which contains three complex numbers and one real number. The quaternion's 
+									complex components represent different axes, affected by the euclidian components of the angular velocity vector.
+									The real scalar component scales how much it needs to rotate by, affected by the vectors homogeneous component.
+								</li>
+								<li>
+									It is not updated every frame, as if no force is applied, there is no point doing checks to update the orientation.
+									This is the end point of the objects rotation, as unlike torque or angular velocity, it doesn't move into another
+									aspect of rotation.
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				<div class="table">
+					<h2>
+						Mass Aggregates
+					</h2>
+					
+					<p>
+						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+						ABC
+					</p>
+				</div>
+			</div>
+		</main>
+		
+		<footer>
+			<div class="footer_lists">
+				<div class="footer_page_list">
+					<ul class="footer_list">
+						<li>
+							Pages:
+						</li>
+						<li>
+							<a href="index.html">
+								Engine Overview
+							</a>
+						</li>
+						<li>
+							<a href="math_engine.html">
+								Math Engine
+							</a>
+						</li>
+						<li>
+							<a href="physics_objects.html">
+								Physics Objects
+							</a>
+						</li>
+						<li>
+							<a href="collision_detection.html">
+								Collision Detection
+							</a>
+						</li>
+						<li>
+							<a href="collision_resolution.html">
+								Collision Resolution
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="footer_socials_list">
+					<ul class="footer_list">
+						<li>
+							Socials:
+						</li>
+						<li>
+							<a href="https://github.com/3Darragh">
+								Github
+							</a>
+						</li>
+						<li>
+							<a href="https://www.linkedin.com/in/darragh-mcconville/">
+								Linkedin
+							</a>
+						</li>
+						<li>
+							<a href="https://www.artstation.com/darragh">
+								Art Station
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="footer_contact_list">
+					<ul class="footer_list">
+						<li>
+							Contact:
+						</li>
+						<li>
+							Darragh McConville
+						</li>
+						<li>
+							267-863-0169
+						</li>
+						<li>
+							Havertown, PA
+						</li>
+						<li>
+							<a href="mailto:3Darragh@gmail.com">
+								3Darragh@gmail.com
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer_copyright">
+				&copy; 2025, Darragh McConville. All Rights Reserved.
+			</div>
+		</footer>
+	</body>
+</html>
