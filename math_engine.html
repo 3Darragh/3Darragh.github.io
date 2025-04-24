@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+
+<html lang="en"> 
+
+	<head>
+		<title>
+			The Plain Engine
+		</title>
+		
+		<link rel="stylesheet" href="classes.css">
+		<link rel="stylesheet" href="index.css">
+		<link rel="stylesheet" href="theme.css">
+		
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<script>
+			if (localStorage.getItem('theme') === 'dark') 
+			{
+				document.documentElement.classList.add('dark-theme');
+			}	
+		</script>
+
+		<script defer src="theme.js">
+		</script>
+		
+	</head>
+	
+	<body>
+		
+		<header>
+				<h1>
+					<a href="index.html">
+						The Plain Engine
+					</a>
+				</h1>
+		</header>
+		
+		<nav>
+			<div class="nav_links">
+				<ul>
+					<li>
+						<a href="index.html">
+							Engine Overview
+						</a>
+					</li>
+					<li>
+						<a href="math_engine.html">
+							Math Engine
+						</a>
+					</li>
+					<li>
+						<a href="physics_objects.html">
+							Physics Objects
+						</a>
+					</li>
+					<li>
+						<a href="collision_detection.html">
+							Collision Detection
+						</a>
+					</li>
+					<li>
+						<a href="collision_resolution.html">
+							Collision Resolution
+						</a>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="theme_label">
+				<label for="theme-toggle">
+						Toggle Theme:
+				</label>
+			</div>
+			
+			<div class="nav_theme_toggle">
+				<label class="switch">
+					<input type="checkbox" id="theme-toggle">
+					<span class="slider round">
+					</span>
+				</label>
+			</div>
+		</nav>
+		
+		<main>
+			<h2>
+				What is a Math Engine?
+			</h2>
+			<div class="paragraph">
+				<p>
+					&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+					The math engine is the code that does all of the mathematical equations needed for the rest of the engine. 
+					This encompasses traditional math, object transformations (positioning, scale, shape, rotation, ... ),
+					mathematical utilities (determinants, decomposition, inversions, normalization, ... ) and more niche
+					applications catered for physics and rendering. Without the math engine, basic manipulation of objects
+					would not be achievable, making it the backbone of the entire project. This page will document all types,
+					operators, functions, and references used in the math engine.
+				</p>
+			</div>
+			
+			<div class="table_row">
+				<div class="table">
+					<h2>
+						Types
+					</h2>
+					
+					<p>
+						There are three different math types that represents objects and transformations within the engine: vectors, matrices, and quaternions. 
+						All aspects of the math and physics engine rely primarilly on these three types.
+					</p>
+					
+					<ul class="main_bullet_points"> 
+						<li>
+						Vectors represent direction and magnitude in spaces, ranging from two floats to four. 
+						<ul class="sub_bullet_points">
+							<li>
+								They're used for positioning, directions, and forces.
+							</li>
+							<li> 
+								Almost all vectors used have a normalized magnitude equal to one.
+							</li>
+						</ul>
+						</li>
+						<li>
+						Matrices represent complex transformations different spaces, ranging from four to sixteen floats.
+						<ul class="sub_bullet_points">
+							<li>
+								They're used for translation, scaling, euler rotations, and projection.
+							</li>
+							<li> 
+								Most matrices are square with two, three, of four columns, with two exceptions for rendering.
+							</li>
+						</ul>
+						</li>
+						<li>
+						Quaternions represent orientation with three complex and one real number, always with four floats.
+						<ul class="sub_bullet_points">
+							<li>
+								They're used for animation, camera movements, and rigid body rotations.
+							</li>
+							<li> 
+								They're used in 3D rotations over matrices because they avoid gimbal lock with smooth interpolation.
+							</li>
+						</ul>
+						</li>
+					</ul>
+					
+				</div>
+				<div class="table">
+					<h2>
+						Overloaded Operators
+					</h2>
+				
+					<p>
+						Operators are chosen for the types if they are used frequently and light weight, as they need as few computations as possible while maintaining readability to those reading over the code.
+						Below is a list of common operators that are excluded, and a table of operators that are included.
+					</p>
+					
+					<ul class="main_bullet_points"> 
+						<li>
+							Component Wise Multiplication and Division:
+							<ul class="sub_bullet_points">
+								<li>
+									Too uncommon and they would have to share the same symbol as scalar operators.
+								</li>
+							</ul>
+						</li>
+						<li>
+							Matrix Multiplication:
+							<ul class="sub_bullet_points">
+								<li>
+									Used frequently, but requires up to 64 multiplications and 48 additions.
+								</li>
+							</ul>
+						</li>
+						<li>
+							Quaternion Scalar Divison:
+							<ul class="sub_bullet_points">
+								<li>
+									Quaternions have no use for division besides converting to euclidian space.
+								</li>
+							</ul>
+						</li>
+						<li>
+							Quaternion Subtraction:
+							<ul class="sub_bullet_points">
+								<li>
+									Sparely for comparisons only, so not worth creating an operator for.
+								</li>
+							</ul>
+						</li>
+						<li>
+							Vector Cross Product:
+							<ul class="sub_bullet_points">
+								<li>
+									Is common and inexpensive, but would have to share the same symbol as the dot product.
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+					
+			<div class="table_row">
+				<div class="table">
+					<table>
+						<thead>
+							<tr>
+								<th>
+									Type:
+								</th>
+								<th>
+									Size:
+								</th>
+								<th>
+									Alignment:
+								</th>
+								<th>
+									Parameters:
+								</th>
+								<th>
+									Purpose:
+								</th>
+								<th>
+									Space:
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									Vec2
+								</td>
+								<td>
+									8 Bytes
+								</td>
+								<td>
+									4 Bytes
+								</td>
+								<td>
+									2 Floats
+								</td>
+								<td>
+									Two Dimensional Vector
+								</td>
+								<td>
+									Euclidian Space Only
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Vec3
+								</td>
+								<td>
+									12 Bytes
+								</td>
+								<td>
+									4 Bytes
+								</td>
+								<td>
+									3 Floats
+								</td>
+								<td>
+									Two Dimensional Homogeneous Vector
+								</td>
+								<td>
+									Euclidian and Homogeneous Space
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Vec4
+								</td>
+								<td>
+									16 Bytes
+								</td>
+								<td>
+									4 Bytes
+								</td>
+								<td>
+									4 Floats
+								</td>
+								<td>
+									Three Dimensional Homogeneous Vector
+								</td>
+								<td>
+									Euclidian and Homogeneous Space
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Mat2
+								</td>
+								<td>
+									16 Bytes
+								</td>
+								<td>
+									4 Bytes
+								</td>
+								<td>
+									4 Floats
+								</td>
+								<td>
+									Two by Two Square Matrix
+								</td>
+								<td>
+									Euclidian Space Only
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Mat3
+								</td>
+								<td>
+									36 Bytes
+								</td>
+								<td>
+									4 Bytes
+								</td>
+								<td>
+									9 Floats
+								</td>
+								<td>
+									Three by Three Square Matrix
+								</td>
+								<td>
+									Euclidian and Homogeneous Space
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Mat4
+								</td>
+								<td>
+									64 Bytes
+								</td>
+								<td>
+									4 Bytes
+								</td>
+								<td>
+									16 Floats
+								</td>
+								<td>
+									Four by Four Square Matrix
+								</td>
+								<td>
+									Euclidian and Homogeneous Space
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Mat2x3
+								</td>
+								<td>
+									24 Bytes
+								</td>
+								<td>
+									4 Bytes
+								</td>
+								<td>
+									6 Floats
+								</td>
+								<td>
+									Two by Three Matrix
+								</td>
+								<td>
+									Primarilly Homogeneous Space
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Mat3x4
+								</td>
+								<td>
+									48 Bytes
+								</td>
+								<td>
+									4 Bytes
+								</td>
+								<td>
+									12 Floats
+								</td>
+								<td>
+									Three by Four Matrix
+								</td>
+								<td>
+									Primarilly Homogeneous Space
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Quat
+								</td>
+								<td>
+									64 Bytes
+								</td>
+								<td>
+									16 Bytes
+								</td>
+								<td>
+									4 Floats
+								</td>
+								<td>
+									Four Element Quaternion
+								</td>
+								<td>
+									Euclidian and Homogeneous Space
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			
+				<div class="table">
+					<table>
+						<thead>
+							<tr>
+								<th>
+									Symbol:
+								</th>
+								<th>
+									Operation:
+								</th>
+								<th>
+									Return Type:
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									==
+								</td>
+								<td>
+									Bool Equality Check
+								</td>
+								<td>
+									Boolean
+								</td>
+							</tr>
+							<tr>
+								<td>
+									!=
+								</td>
+								<td>
+									Bool Inequality Check
+								</td>
+								<td>
+									Boolean
+								</td>
+							</tr>
+							<tr>
+								<td>
+									-
+								</td>
+								<td>
+									Negation
+								</td>
+								<td>
+									Vectors, Matrices, Quaternions
+								</td>
+							</tr>
+							<tr>
+								<td>
+									+
+								</td>
+								<td>
+									Addition
+								</td>
+								<td>
+									Vectors, Matrices, Quaternions
+								</td>
+							</tr>
+							<tr>
+								<td>
+									+=
+								</td>
+								<td>
+									Addition Update
+								</td>
+								<td>
+									Void
+								</td>
+							</tr>
+							<tr>
+								<td>
+									-
+								</td>
+								<td>
+									Subtraction
+								</td>
+								<td>
+									Vectors, Matrices
+								</td>
+							</tr>
+							<tr>
+								<td>
+									-=
+								</td>
+								<td>
+									Subtraction Update
+								</td>
+								<td>
+									Void
+								</td>
+							</tr>
+							<tr>
+								<td>
+									*
+								</td>
+								<td>
+									Dot Product Operator
+								</td>
+								<td>
+									Float
+								</td>
+							</tr>
+							<tr>
+								<td>
+									*
+								</td>
+								<td>
+									Scalar Multiplication
+								</td>
+								<td>
+									Vectors, Matrices, Quaternions
+								</td>
+							</tr>
+							<tr>
+								<td>
+									*=
+								</td>
+								<td>
+									Scalar Multiplication Update
+								</td>
+								<td>
+									Void
+								</td>
+							</tr>
+							<tr>
+								<td>
+									*
+								</td>
+								<td>
+									Hamilton Product
+								</td>
+								<td>
+									Quaternions
+								</td>
+							</tr>
+							<tr>
+								<td>
+									*=
+								</td>
+								<td>
+									Hamilton Product Update
+								</td>
+								<td>
+									Void
+								</td>
+							</tr>
+							<tr>
+								<td>
+									/
+								</td>
+								<td>
+									Scalar Division
+								</td>
+								<td>
+									Vectors, Matrices
+								</td>
+							</tr>
+							<tr>
+								<td>
+									/=
+								</td>
+								<td>
+									Scalar Division Update
+								</td>
+								<td>
+									Void
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+			<div class="negative_six_margin">
+				<h2>
+					Functions
+				</h2>
+			
+				<div class="paragraph">
+					<p>
+						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+						Math functions take up the bulk of the math engine, with over 200 functions excluding any multiples across types.
+						Because of this quantity, this section will be split across four tables with only the most important functions listed.
+						All universal functions are listed, which are functions that maintain their name and function across all types.
+						For type specific functions, only a handful are listed, with others being excluded to the high quantity of functions.
+						Some of the excluded functions include:
+					</p>
+				</div>
+			</div>
+		
+			<ul class="main_bullet_points"> 
+				<li>
+					Boolean Checks.
+				</li>
+				<li>
+					Decomposition Functions.
+				</li>
+				<li>
+					Matrix Helper Functions.
+				</li>
+				<li>
+					Squared Comparison Functions.
+				</li>
+				<li>
+					Void Update Functions.
+				</li>
+				<li>
+					Type Conversion Functions.
+				</li>
+			</ul>
+			
+			<div class="negative_two_margin">
+				<div class="table_row">
+					<div class="table">
+						<h3>
+							Universal Functions
+						</h3>
+							
+						<table>
+							<thead>
+								<tr>
+									<th>
+										Function Name:
+									</th>
+									<th>
+										Description:
+									</th>
+									<th>
+										Return Type:
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										division()
+									</td>
+									<td>
+										Component divides two type values.
+									</td>
+									<td>
+										Vector, Matrix, Quaternion
+									</td>
+								</tr>
+								<tr>
+									<td>
+										division_update()
+									</td>
+									<td>
+										Component divides and updates two type values.
+									</td>
+									<td>
+										Void
+									</td>
+								</tr>
+								<tr>
+									<td>
+										get_component()
+									</td>
+									<td>
+										Returns a component from a custom type.
+									</td>
+									<td>
+										Float
+									</td>
+								</tr>
+								<tr>
+									<td>
+										is_nan()
+									</td>
+									<td>
+										Checks if any components are NaN.
+									</td>
+									<td>
+										Boolean
+									</td>
+								</tr>
+								<tr>
+									<td>
+										max_component()
+									</td>
+									<td>
+										Returns the largest component of the type.
+									</td>
+									<td>
+										Float
+									</td>
+								</tr>
+								<tr>
+									<td>
+										min_component()
+									</td>
+									<td>
+										Returns the smallest component of the type.
+									</td>
+									<td>
+										Float
+									</td>
+								</tr>
+								<tr>
+									<td>
+										multiplication()
+									</td>
+									<td>
+										Component multiplies two type values.
+									</td>
+									<td>
+										Vector, Matrix, Quaternion
+									</td>
+								</tr>
+								<tr>
+									<td>
+										multiplication_update()
+									</td>
+									<td>
+										Component multiplies and updates two type values.
+									</td>
+									<td>
+										Void
+									</td>
+								</tr>
+								<tr>
+									<td>
+										negate_update()
+									</td>
+									<td>
+										Finds the negation of a custom type.
+									</td>
+									<td>
+										Void
+									</td>
+								</tr>
+								<tr>
+									<td>
+										set()
+									</td>
+									<td>
+										Sets the type values.
+									</td>
+									<td>
+										Void
+									</td>
+								</tr>
+								<tr>
+									<td>
+										set_component()
+									</td>
+									<td>
+										Sets a singular type value.
+									</td>
+									<td>
+										Void
+									</td>
+								</tr>
+								<tr>
+									<td>
+										swap_component()
+									</td>
+									<td>
+										Swaps a two floats within a custom type.
+									</td>
+									<td>
+										Void
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					
+					<div class="table">
+						<h3>
+							Important Matrix Functions
+						</h3>
+						
+						<table>
+							<thead>
+								<tr>
+									<th>
+										Function:
+									</th>
+									<th>
+										Description:
+									</th>
+									<th>
+										Return Type:
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										determinant()
+									</td>
+									<td>
+										Returns the matrix determinant.
+									</td>
+									<td>
+										Float
+									</td>
+								</tr>
+								<tr>
+									<td>
+										eigenvalues()
+									</td>
+									<td>
+										Returns the eigenvalues of the matrix.
+									</td>
+									<td>
+										Float
+									</td>
+								</tr>
+								<tr>
+									<td>
+										eigenvector()
+									</td>
+									<td>
+										Returns the eigenvectors of the matrix.
+									</td>
+									<td>
+										Vector
+								</tr>
+								<tr>
+									<td>
+										euler_transform()
+									</td>
+									<td>
+										Rotates the matrix along each axis individually.
+									</td>
+									<td>
+										Matrix
+									</td>
+								</tr>
+								<tr>
+									<td>
+										inverse()
+									</td>
+									<td>
+										Finds the inverse of the matrix.
+									</td>
+									<td>
+										Matrix
+									</td>
+								</tr>
+								<tr>
+									<td>
+										matrix_multiplication()
+									</td>
+									<td>
+										Multiplies two matrices.
+									</td>
+									<td>
+										Matrix
+									</td>
+								</tr>
+								<tr>
+									<td>
+										pivot()
+									</td>
+									<td>
+										Rotates the matrix around the pivot point.
+									</td>
+									<td>
+										Matrix
+									</td>
+								</tr>
+								<tr>
+									<td>
+										rotate()
+									</td>
+									<td>
+										Rotates the matrix around the given vector.
+									</td>
+									<td>
+										Matrix
+									</td>
+								</tr>
+								<tr>
+									<td>
+										rank()
+									</td>
+									<td>
+										Finds the rank of the matrix.
+									</td>
+									<td>
+										Float
+									</td>
+								</tr>
+								<tr>
+									<td>
+										rank()
+									</td>
+									<td>
+										Finds the rank of the matrix.
+									</td>
+									<td>
+										Float
+									</td>
+								</tr>
+								<tr>
+									<td>
+										reflect_across_vector()
+									</td>
+									<td>
+										Reflects the matrix across the given vector.
+									</td>
+									<td>
+										Matrix
+									</td>
+								</tr>
+								<tr>
+									<td>
+										translate()
+									</td>
+									<td>
+										Moves the matrix along the given vector.
+									</td>
+									<td>
+										Matrix
+									</td>
+								</tr>
+								<tr>
+									<td>
+										transpose()
+									</td>
+									<td>
+										Swaps the matrix rows and columns.
+									</td>
+									<td>
+										Matrix
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+			
+			<div class="table_row">
+				<div class="table">
+					<h3>
+						Important Vector Functions
+					</h3>
+					<table>
+						<thead>
+							<tr>
+								<th>
+									Function:
+								</th>
+								<th>
+									Description:
+								</th>
+								<th>
+									Return Type:
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									angle_between()
+								</td>
+								<td>
+									Returns the angle between two vectors.
+								</td>
+								<td>
+									Float
+								</td>
+							</tr>
+							<tr>
+								<td>
+									cross_product()
+								</td>
+								<td>
+									Finds the cross product of two vectors.
+								</td>
+								<td>
+									Vector
+								</td>
+							</tr>
+							<tr>
+								<td>
+									distance_between()
+								</td>
+								<td>
+									Returns the distance between two vectors.
+								</td>
+								<td>
+									Float
+								</td>
+							</tr>
+							<tr>
+								<td>
+									normalize()
+								</td>
+								<td>
+									Sets the vector magnitude to one.
+								</td>
+								<td>
+									Vector
+								</td>
+							</tr>
+							<tr>
+								<td>
+									outer_product()
+								</td>
+								<td>
+									Multiplies two vectors component wise.
+								</td>
+								<td>
+									Vector
+								</td>
+							</tr>
+							<tr>
+								<td>
+									project_vector()
+								</td>
+								<td>
+									Projects the vector onto another vector.
+								</td>
+								<td>
+									Vector
+								</td>
+							</tr>
+							<tr>
+								<td>
+									real_magnitude()
+								</td>
+								<td>
+									Returns the magnitude of the vector.
+								</td>
+								<td>
+									Float
+								</td>
+							</tr>
+							<tr>
+								<td>
+									to_euclidian()
+								</td>
+								<td>
+									Converts the vector from homogenous to euclidian space.
+								</td>
+								<td>
+									Vector
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				<div class="table">
+					<h3>
+						Important Quaternion Functions
+					</h3>
+					<table>
+						<thead>
+							<tr>
+								<th>
+									Function:
+								</th>
+								<th>
+									Description:
+								</th>
+								<th>
+									Return Type:
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									conjugate()
+								</td>
+								<td>
+									Negates the quaternion's vector component.
+								</td>
+								<td>
+									Quaternion
+								</td>
+							</tr>
+							<tr>
+								<td>
+									dot_product()
+								</td>
+								<td>
+									Returns the dot product of two quaternions.
+								</td>
+								<td>
+									Float
+								</td>
+							</tr>
+							<tr>
+								<td>
+									inverse()
+								</td>
+								<td>
+									Finds the inverse of the quaternion.
+								</td>
+								<td>
+									Quaternion
+								</td>
+							</tr>
+							<tr>
+								<td>
+									normalize()
+								</td>
+								<td>
+									Sets the quaternion magnitude to one.
+								</td>
+								<td>
+									Quaternion
+								</td>
+							</tr>
+							<tr>
+								<td>
+									real_magnitude()
+								</td>
+								<td>
+									Returns the magnitude of the vector.
+								</td>
+								<td>
+									Float
+								</td>
+							</tr>
+							<tr>
+								<td>
+									rotate_vector()
+								</td>
+								<td>
+									Rotates a vector by the quaternion.
+								</td>
+								<td>
+									Vector
+								</td>
+							</tr>
+							<tr>
+								<td>
+									slerp()
+								</td>
+								<td>
+									Performs spherical linear interpolation.
+								</td>
+								<td>
+									Quaternion
+								</td>
+							</tr>
+							<tr>
+								<td>
+									to_euler_angles()
+								</td>
+								<td>
+									Returns pitch, roll, and yaw values.
+								</td>
+								<td>
+									Vector
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+			<h2>
+				References and Sources
+			</h2>
+			
+			<div class="citation_row">
+				<div class="citations">
+					<ul class="main_bullet_points">
+						<li>
+							3D Math Primer for Graphics and Game Development
+							<ul class="sub_bullet_points">
+								<li>
+									Written by Fletcher Dunn and Ian Parberry
+								</li>
+								<li>
+									<a href="https://a.co/d/cvrRNyj">
+										Amazon Listing
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							Mathematics for 3D Game Programming and Computer Graphics
+							<ul class="sub_bullet_points">
+								<li>
+									Written by Eric Lengyel
+								</li>
+								<li>
+									<a href="https://a.co/d/cgCUaPj">
+										Amazon Listing
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							Linear Algebra Done Right
+							<ul class="sub_bullet_points">
+								<li>
+									Written by Sheldon Axler
+								</li>
+								<li>
+									<a href="https://a.co/d/6a0S93P">
+										Amazon Listing
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							Linear Algebra Done Wrong
+							<ul class="sub_bullet_points">
+								<li>
+									Written by Sergei Treil
+								</li>
+								<li>
+									<a href="https://www.math.brown.edu/streil/papers/LADW/LADW.html">
+										Brown University Book Page
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+		
+				<div class="source_images">
+					<img src="https://m.media-amazon.com/images/I/91NklRob4OL.jpg" alt="Cover of 3D Math Primer for Graphics and Game Development" class="image_size">
+					<img src="https://m.media-amazon.com/images/I/71H3hiSBwJL._AC_UF1000,1000_QL80_.jpg" alt="Cover of Mathematics for 3D Game Programming and Computer Graphics" class="image_size">
+					<img src="https://m.media-amazon.com/images/I/61AR-EJ28gL._AC_UF1000,1000_QL80_.jpg" alt="Cover of Linear Algebra Done Right" class="image_size">
+				</div>
+			</div>
+		</main>
+		
+		<footer>
+			<div class="footer_lists">
+				<div class="footer_page_list">
+					<ul class="footer_list">
+						<li>
+							Pages:
+						</li>
+						<li>
+							<a href="index.html">
+								Engine Overview
+							</a>
+						</li>
+						<li>
+							<a href="math_engine.html">
+								Math Engine
+							</a>
+						</li>
+						<li>
+							<a href="physics_objects.html">
+								Physics Objects
+							</a>
+						</li>
+						<li>
+							<a href="collision_detection.html">
+								Collision Detection
+							</a>
+						</li>
+						<li>
+							<a href="collision_resolution.html">
+								Collision Resolution
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="footer_socials_list">
+					<ul class="footer_list">
+						<li>
+							Socials:
+						</li>
+						<li>
+							<a href="https://github.com/3Darragh">
+								Github
+							</a>
+						</li>
+						<li>
+							<a href="https://www.linkedin.com/in/darragh-mcconville/">
+								Linkedin
+							</a>
+						</li>
+						<li>
+							<a href="https://www.artstation.com/darragh">
+								Art Station
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="footer_contact_list">
+					<ul class="footer_list">
+						<li>
+							Contact:
+						</li>
+						<li>
+							Darragh McConville
+						</li>
+						<li>
+							267-863-0169
+						</li>
+						<li>
+							Havertown, PA
+						</li>
+						<li>
+							<a href="mailto:3Darragh@gmail.com">
+								3Darragh@gmail.com
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer_copyright">
+				&copy; 2025, Darragh McConville. All Rights Reserved.
+			</div>
+		</footer>
+	</body>
+</html>
