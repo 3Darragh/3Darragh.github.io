@@ -9,6 +9,7 @@
 		
 		<link rel="stylesheet" href="classes.css">
 		<link rel="stylesheet" href="index.css">
+		<link rel="stylesheet" href="media_queries.css">
 		<link rel="stylesheet" href="theme.css">
 		
 		<meta charset="utf-8">
@@ -166,8 +167,100 @@
 					
 					<p>
 						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-						ABC
+						Mass aggregates are objects consisting of small nodes that are conected to eachother through constraints. Each node has a mass,
+						and can move on their own. This means that unlike rigid bodies, if a certain area of an aggregate is hit, it only that portion
+						and it's neighbors will move depending on the mass of the nodes and the forces applied. Mass aggregates are used for many different
+						objects that rigid bodies cannot recreate. Examples of these include:
 					</p>
+					
+					<ul class="main_bullet_points"> 
+						<li>
+							Cloth and Rope
+							<ul class="sub_bullet_points">
+								<li>
+									Cloth and rope are examples of common dynamic objects that need to deform around their environment within the physics simulation.
+									In most modeling programs, cloth is dropped over an environment and each node will interact with the environment when it collides
+									with other physics objects, deforming it.
+								</li>
+								<li>
+									Cloth and rope can often be converted into a rigid body if it is used statically with no dynamic movement, but it best for it to 
+									start as a mass aggregate as it will automatically deform around the other objects in it's environment, instead of modeling it
+									from scratch.
+								</li>
+							</ul>
+						</li>
+						<li>
+							Destructables
+							<ul class="sub_bullet_points">
+								<li>
+									Objects or scenes that are destructable are very common in simulations when testing collisions for real world purposes, including
+									safety features, product tests, and architectural purposes. Most CAD tools rely more on mass aggregates than rigid bodies for this
+									reason.
+								</li>
+								<li>
+									 While games can get away with using rigid bodies, by swapping out the model with a premade destrotyed model, simulations cannot, as
+									 it is important to accurately deform these objects around the node of intersection, so this would not work.
+								</li>
+							</ul>
+						</li>
+						<li>
+							Particle and Fluid Dynamics
+							<ul class="sub_bullet_points">
+								<li>
+									Particle and fluid dynamics are the most intensive mass aggregates to simulate, as in order to accurately simulate fluids or gases, even in 
+									small containers, thousands of nodes are needed sometimes millions. This is because the nodes move rapidly, turbulantly, and divergently.
+								</li>
+								<li>
+									No game, simulation, or animation program is currently rendering fluids in real time with ray tracing, as no matter what acceleration structures 
+									used (discussed in collision detection), they cannot be made fast enough with current hardware. Houdini by SideFX, the best renderer for particles
+									and fluids, requires a minimum of 64 GB DDR5 RAM for these types of simulations.
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</div>
+			
+			<h2>
+				References and Sources
+			</h2>
+			
+			<div class="citation_row">
+				<div class="citations">
+					<ul class="main_bullet_points">
+						<li>
+							Game Physics Engine Development Chapters 5 - 11
+							<ul class="sub_bullet_points">
+								<li>
+									Written by Ian Millington
+								</li>
+								<li>
+									<a href="https://a.co/d/40XGmry">
+										Amazon Listing
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							Guide to Dynamic Simulations of Rigid Bodies and Particle Systems 
+							<ul class="sub_bullet_points">
+								<li>
+									Written by  Murilo G. Coutinho
+								</li>
+								<li>
+									<a href="https://a.co/d/bThhznL">
+										Amazon Listing
+									</a>
+								</li>
+							</ul>
+							
+						</li>
+					</ul>
+				</div>
+				
+				<div class="source_images">
+					<img src="https://m.media-amazon.com/images/I/71-xbxUxmTL.jpg" alt="Cover of Game Physics Engine Development" class="image_size">
+					<img src="https://media.springernature.com/full/springer-static/cover-hires/book/978-1-4471-4417-5" alt="Cover of Guide to Dynamic Simulations of Rigid Bodies and Particle Systems" class="image_size">
 				</div>
 			</div>
 		</main>
