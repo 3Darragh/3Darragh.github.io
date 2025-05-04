@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+
+<html lang="en"> 
+
+	<head>
+		<title>
+			The Plain Engine
+		</title>
+		
+		<link rel="stylesheet" href="classes.css">
+		<link rel="stylesheet" href="index.css">
+		<link rel="stylesheet" href="media_queries.css">
+		<link rel="stylesheet" href="theme.css">
+		
+		<script defer src="theme.js">
+		</script>
+		
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+		<script>
+			if (localStorage.getItem('theme') === 'dark') 
+			{
+				document.documentElement.classList.add('dark-theme');
+			}	
+		</script>
+	</head>
+	
+	<body>
+		<header>
+				<h1>
+					<a href="index.html">
+						The Plain Engine
+					</a>
+				</h1>
+		</header>
+		
+		<nav>
+			<div class="nav_links">
+				<ul>
+					<li>
+						<a href="index.html">
+							Engine Overview
+						</a>
+					</li>
+					<li>
+						<a href="math_engine.html">
+							Math Engine
+						</a>
+					</li>
+					<li>
+						<a href="physics_objects.html">
+							Physics Objects
+						</a>
+					</li>
+					<li>
+						<a href="collision_detection.html">
+							Collision Detection
+						</a>
+					</li>
+					<li>
+						<a href="collision_resolution.html">
+							Collision Resolution
+						</a>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="theme_label">
+				<label for="theme-toggle">
+						Toggle Theme:
+				</label>
+			</div>
+			
+			<div class="nav_theme_toggle">
+				<label class="switch">
+					<input type="checkbox" id="theme-toggle">
+					<span class="slider round">
+					</span>
+				</label>
+			</div>
+		</nav>
+		
+		<main>
+			<h2>
+				What is Collision Resolution?
+			</h2>
+			
+			<div class="paragraph">
+				<p>
+					&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+					Collision resolution is the step after collision detection. Once two objects are detected to be intersecting, they need to
+					be acted upon by forces in order to move, rotate, or change after the collision. The first step of collision resolution is
+					position correction, which just moves them slightly to stop them from intersecting. Then forces are applied via impulses, one
+					after another until another collision happens or the forces dissapate through some external forces like decelleration, friction,
+					gravity, etc.
+				</p>
+			</div>
+			
+			<div class="table_row">
+				<div class="table">
+					<h2>
+						Impulses
+					</h2>
+					
+					<p>
+						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+						The engine increments at a set tick rate, and an impulse is applied at each tick. During these ticks, all forces are
+						applied one at a time within a tick until all forces are applied. This is done because once a collision is detected within
+						a tick, the applied forces are calculated immediately to find the new position and rotation. 
+						<br> 
+						<br>
+						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+						Some engines like Godot support constant forces over impulses, which are continually applied over long distances, but this is 
+						inefficient for sudden forces that are applied over short distances like large amounts of velocity or torque applied in one tick.
+						Impulses is also easier to implement, as small forces applied every tick under a set of circumstances are indistinguishable from
+						constant forces.
+					</p>
+				</div>
+				
+				<div class="table">
+				</div>
+			</div>
+			
+			<div class="table_row">
+				<div class="table">
+					<h2>
+						Applied Forces
+					</h2>
+					
+					<p>
+						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+						This section lists different forces that are applied after collision. Some of these are derived from other forces, such as acceleration
+						from velocity, or angular velocity from torque. Many of these are specifically for position correction, which are always applied first.
+						It will also be denoted if they apply to rigid bodies, mass aggregates, or both.
+					</p>
+					
+					<table>
+						<thead>
+							<tr>
+								<th>
+									Force:
+								</th>
+								<th>
+									Description:
+								</th>
+								<th>
+									Object:
+								</th>
+								<th>
+									Formula:
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									Angular Velocity
+								</td>
+								<td>
+									A change in velocity updated every tick.
+								</td>
+								<td>
+									Rigid Bodies
+								</td>
+								<td>
+									angular_velocity = torque * angulular_position_vector / rotation_axis
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Bounce Force
+								</td>
+								<td>
+									A force that represence how elastic the object is when it bounces.
+								</td>
+								<td>
+									Both
+								</td>
+								<td>
+									bounce_force = current_bounce_force * restitution_coefficient
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Friction Force
+								</td>
+								<td>
+									A decellerating that applies tangent to the contact surface.
+								</td>
+								<td>
+									Both
+								</td>
+								<td>
+									friction_force = tangent_direction * normal_force
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Impulse Force
+								</td>
+								<td>
+									Creates an impulse that stops objects from penetrating.
+								</td>
+								<td>
+									Both
+								</td>
+								<td>
+									impulse_force = (1 + restitution_coefficient) * relative_velocity * contact_normal / (mass_one + mass_2)
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Normal Force
+								</td>
+								<td>
+									Small impulse that seperates two objects that are currently intersected.
+								</td>
+								<td>
+									Both
+								</td>
+								<td>
+									normal_force = impulse_force * scalar * contact_normal
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Positional Correction
+								</td>
+								<td>
+									Prevents objects from sinking into eachother from external forces when colliding.
+								</td>
+								<td>
+									Both
+								</td>
+								<td>
+									positional_correction = correction_factor * max_penetration_depth * contact_normal_vector
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Torque
+								</td>
+								<td>
+									Rotational force applied to the object center from contact point.
+								</td>
+								<td>
+									Rigid Bodies
+								</td>
+								<td>
+									torque = center_to_contact_vector * friction_force
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Velocity
+								</td>
+								<td>
+									Directional change in velocity per tick.
+								</td>
+								<td>
+									Both
+								</td>
+								<td>
+									velocity = acceleration / tickrate
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				
+				<div class="table">
+					<h2>
+						External Forces
+					</h2>
+					
+					<p>
+						&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+						External forces are forces that are applied to the object based on inputs, scene items, or other forces that are
+						not related to collision. This does not mean that some of these cannot be applied on collision, like bouyancy with
+						fluid surface, but these are the most common external forces.
+					</p>
+						
+					<table>
+						<thead>
+							<tr>
+								<th>
+									Force:
+								</th>
+								<th>
+									Description:
+								</th>
+								<th>
+									Object:
+								</th>
+								<th>
+									Formula:
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									Bouyancy
+								</td>
+								<td>
+									Bouyancy is the force applied when an object is underneath fluid
+									(being in fluid is not the same as colliding with fluid)
+								</td>
+								<td>
+									Both
+								</td>
+								<td>
+									bouyancy = fluid_density * volume_submerged * gravity * mass
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Centripetal Force
+								</td>
+								<td>
+									Force that moves the physics object around a curved path.
+								</td>
+								<td>
+									Both
+								</td>
+								<td>
+									centripetal_force = mass * velocity^2 / turn_radius
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Constraint Forces
+								</td>
+								<td>
+									List of forces applied to the constraints between aggregate nodes.
+								</td>
+								<td>
+									Mass aggregates.
+								</td>
+								<td>
+									Force dependant
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Damping
+								</td>
+								<td>
+									Reduces velocity, rotation, or other forces overtime.
+								</td>
+								<td>
+									Both
+								</td>
+								<td>
+									damping = damping_coefficient * force
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Drag
+								</td>
+								<td>
+									Resistance created from air or fluids pushing against nodes.
+								</td>
+								<td>
+									Mass Aggregates
+								</td>
+								<td>
+									drag = fluid_density / 2 * drag_coefficient * frontal_node_area * velocity^2
+								</td>
+							</tr>
+							
+							<tr>
+								<td>
+									Gravity
+								</td>
+								<td>
+									Force pulling objects downward.
+								</td>
+								<td>
+									Both
+								</td>
+								<td>
+									gravity = mass * gravity_constant * sine(terrain_angle)
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Rolling Resistance
+								</td>
+								<td>
+									Force applied between a rolling object and a static surface.
+								</td>
+								<td>
+									Both
+								</td>
+								<td>
+									rolling_resistance = rolling_resistance_coefficient * velocity * road_resistance 
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Wind
+								</td>
+								<td>
+									Drag or Damping force consistently applied from a direction.
+								</td>
+								<td>
+									Both
+								</td>
+								<td>
+									wind = drag or damping * wind_directional_vector
+								</td>
+							</tr>
+						</tbody>
+					</table>	
+				</div>
+			</div>
+			
+			<h2>
+				References and Sources
+			</h2>
+			
+			<div class="citation_row">
+				<div class="citations">
+					<ul class="main_bullet_points">
+						<li>
+							Game Physics Engine Development Chapters 14 - 17
+							<ul class="sub_bullet_points">
+								<li>
+									Written by Ian Millington
+								</li>
+								<li>
+									<a href="https://a.co/d/40XGmry">
+										Amazon Listing
+									</a>
+								</li>
+							</ul>
+						</li>
+						<li>
+							Physics for Game Developers
+							<ul class="sub_bullet_points">
+								<li>
+									Written by David Bourg and Bryan Bywalec
+								</li>
+								<li>
+									<a href="https://a.co/d/ecMRlLy">
+										Amazon Listing
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div>
+				
+				<div class="source_images">
+					<img src="https://m.media-amazon.com/images/I/71-xbxUxmTL.jpg" alt="Cover of Game Physics Engine Development" class="image_size">
+					<img src="https://m.media-amazon.com/images/I/71kKd50z+tL._AC_UF1000,1000_QL80_.jpg" alt="Physics for Game Developers" class="image_size">
+				</div>
+			</div>
+		</main>
+
+		<footer>
+			<div class="footer_lists">
+				<div class="footer_page_list">
+					<ul class="footer_list">
+						<li>
+							Pages:
+						</li>
+						<li>
+							<a href="index.html">
+								Engine Overview
+							</a>
+						</li>
+						<li>
+							<a href="math_engine.html">
+								Math Engine
+							</a>
+						</li>
+						<li>
+							<a href="physics_objects.html">
+								Physics Objects
+							</a>
+						</li>
+						<li>
+							<a href="collision_detection.html">
+								Collision Detection
+							</a>
+						</li>
+						<li>
+							<a href="collision_resolution.html">
+								Collision Resolution
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="footer_socials_list">
+					<ul class="footer_list">
+						<li>
+							Socials:
+						</li>
+						<li>
+							<a href="https://github.com/3Darragh">
+								Github
+							</a>
+						</li>
+						<li>
+							<a href="https://www.linkedin.com/in/darragh-mcconville/">
+								Linkedin
+							</a>
+						</li>
+						<li>
+							<a href="https://www.artstation.com/darragh">
+								Art Station
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="footer_contact_list">
+					<ul class="footer_list">
+						<li>
+							Contact:
+						</li>
+						<li>
+							Darragh McConville
+						</li>
+						<li>
+							267-863-0169
+						</li>
+						<li>
+							Havertown, PA
+						</li>
+						<li>
+							<a href="mailto:3Darragh@gmail.com">
+								3Darragh@gmail.com
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="footer_copyright">
+				&copy; 2025, Darragh McConville. All Rights Reserved.
+			</div>
+		</footer>
+	</body>
+</html>
