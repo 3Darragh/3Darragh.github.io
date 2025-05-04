@@ -8,9 +8,9 @@
 
 body.dark-theme 
 {
-    --background_color: #1D1D1D;
-    --text_color: #EEEEEE;
-    --nav_background: #333333;
+	--background_color: #1D1D1D;
+	--text_color: #EEEEEE;
+	--nav_background: #333333;
 	--nav_border: #111111;
 }
 
@@ -21,7 +21,7 @@ body.dark-theme
 
 input:checked + .slider 
 {
-  background-color: var(--text_color);
+	background-color: var(--text_color);
 }
 
 body
