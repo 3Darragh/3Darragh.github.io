@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
 <html lang="en"> 
-
 	<head>
 		<title>
 			The Plain Engine
@@ -9,6 +8,7 @@
 		
 		<link rel="stylesheet" href="classes.css">
 		<link rel="stylesheet" href="index.css">
+		<link rel="stylesheet" href="media_queries.css">
 		<link rel="stylesheet" href="theme.css">
 		
 		<meta charset="utf-8">
@@ -20,10 +20,6 @@
 				document.documentElement.classList.add('dark-theme');
 			}	
 		</script>
-
-		<script defer src="theme.js">
-		</script>
-		
 	</head>
 	
 	<body>
@@ -86,270 +82,313 @@
 				What is the Plain Engine?
 			</h2>
 			
-			<p>
-				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-				The Plain Engine is a combined math and physics engine that will be used for real time simulations. It is designed to be easily understandable with simple algorithms, while also  
-				implementing high performance techniques that make it worth using. The purpose of the engine and this website is to provide a learning experience for myself and for others if 
-				they want to create their own engines, as most resources such as physics or rendering textbooks are either expensive or hard to come across. It is for this reason that I plan  
-				to provide a list of all the sources I used for each section of the engine, to show where I got the algorithms from and so you can find more in-depth explanations to learn from.
-			</p>
+			<div class="paragraph">
+				<p>
+					&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+					The Plain Engine is a combined math and physics engine that will be used for real time simulations. It is designed to be easily understandable with simple algorithms, while also  
+					implementing high performance techniques that make it worth using. The purpose of the engine and this website is to provide a learning experience for myself and for others if 
+					they want to create their own engines, as most resources such as physics or rendering textbooks are either expensive or hard to come across. It is for this reason that I plan  
+					to provide a list of all the sources I used for each section of the engine, to show where I got the algorithms from and so you can find more in-depth explanations to learn from.
+				</p>
+			</div>
 			
-			<h2>
-				What Platforms does the Plain Engine Support?
-			</h2>
-			
-			<p>
-				The Plain Engine can ran on the following systems:
-			</p>
-			
-			<ul class="main_bullet_points">
-				<li>
-					Windows.
-					<ul class="sub_bullet_points">
+			<div class="table_row">
+				<div class="table">
+					<h2>
+						What Platforms does the Plain Engine Support?
+					</h2>
+					
+					<p>
+						The Plain Engine has specialized builds for the popular operating systems to ensure that most people will have supported platforms. If you are on some other operating system or
+						a custom linux setup, then the platform may default to Unix, which is more barebones but is made as a "catch-all" option.
+					</p>
+					
+					<ul class="main_bullet_points">
 						<li>
-							32 Bit.
+							Windows.
 						</li>
 						<li>
-							64 Bit.
+							Linux.
 						</li>
-					</ul>
-				</li>
-				<li>
-					Linux.
-				</li>
-				<li>
-					MacOS.
-				</li>
-				<li>
-					Android.
-				</li>
-				<li>
-					Unix.
-					<ul class="sub_bullet_points">
 						<li>
-							Unix is the default failsafe. 
+							MacOS.
+						</li>
+						<li>
+							Android.
+						</li>
+						<li>
+							Unix.
 						</li>
 					</ul>
-				</li>
-			</ul>
-			
-			<h2>
-				What are the build requirements of the Plain Engine?
-			</h2>
-			
-			<p>
-				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-				The Plain Engine has different build requirements depending on the applications use.
-			</p>
-			
-			<table>
-				<thead>
-					<th>
-						Component:
-					</th>
-					<th>
-						Minimum Specs:
-					</th>
-					<th>
-						Average Specs:
-					</th>
-					<th>
-						High Specs:
-					</th>
-				</thead>
-				<tbody>
-					<tr>
-						<td>
-							CPU
-						</td>
-						<td>
-							Intel i5-7500 / AMD Ryzen 3 1200
-						</td>
-						<td>
-							Intel i5-12600K / AMD Ryzen 5 5600X
-						</td>
-						<td>
-							Intel i7-13700K / Ryzen 9 7900X
-						</td>
-					</tr>
-					<tr>
-						<td>
-							GPU
-						</td>
-						<td>
-							NVIDIA GTX 1050 / AMD RX 560
-						</td>
-						<td>
-							NVIDIA RTX 3060 / AMD RX 6700 XT
-						</td>
-						<td>
-							NVIDIA RTX 4080 / AMD RX 7900 XTX
-						</td>
-					</tr>
-					<tr>
-						<td>
-							RAM
-						</td>
-						<td>
-							8 GB DDR4
-						</td>
-						<td>
-							16 GB DDR4
-						</td>
-						<td>
-							32 GB DDR5
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Compiler
-						</td>
-						<td>
-							C++17
-						</td>
-						<td>
-							C++20
-						</td>
-						<td>
-							C++23
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Vulkan API
-						</td>
-						<td>
-							Vulkan 1.2
-						</td>
-						<td>
-							Vulkan 1.3
-						</td>
-						<td>
-							Vulkan 1.3
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			
-			<h2>
-				What is the Plain Engine Dependent on?
-			</h2>
-			
-			<p>
-				&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-				The Plain Engine is dependent on Assimp, Clang, CMake, GLFW, Glslang, SPIR-V Tools, and Vulkan API.
-				These dependancies do not relate to the math or physics engine directly, as they are made entirely from scratch.
-				The dependancies listed are required for platform control, file reading, rendering APIs, and compiling purposes only.
-			</p>
-			
-			<table>
-				<thead>
-					<tr>
-						<th>
-							Dependency:
-						</th>
-						<th>
-							Description:
-						</th>
-						<th>
-							Webpage:
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr>
-						<td>
-							Assimp
-						</td>
-						<td>
-							A multi-platform 3D model importer and exporter.
-						</td>
-						<td>
-							<a href="https://assimp-docs.readthedocs.io/en/latest/about/introduction.html">
-								Assimp Webpage
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Clang
-						</td>
-						<td>
-							A cross-platform C++ compiler built on LLVM.
-						</td>
-						<td>
-							<a href="https://clang.llvm.org/index.html">
-								Clang Webpage
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							CMake
-						</td>
-						<td>
-							A build-system generator.
-						</td>
-						<td>
-							<a href="https://cmake.org/about/">
-								CMake Webpage
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							GLFW
-						</td>
-						<td>
-							A cross-platform windowing and input library.
-						</td>
-						<td>
-							<a href="https://www.glfw.org/docs/latest/intro_guide.html">
-								GLFW Webpage
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Glslang
-						</td>
-						<td>
-							A GLSL/HLSL to SPIR-V shader compiler.
-						</td>
-						<td>
-							<a href="https://www.khronos.org/opengles/sdk/tools/Reference-Compiler/">
-								Glslang Webpage
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							SPIR-V Tools
-						</td>
-						<td>
-							Utilities for SPIR-V shader inspection and validation.
-						</td>
-						<td>
-							<a href="https://chromium.googlesource.com/external/github.com/KhronosGroup/SPIRV-Tools/+/spirv-1.1-rev1/README.md">
-								SPIR-V Tools Webpage
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Vulkan API
-						</td>
-						<td>
-							A cross-platform graphics and compute API.
-						</td>
-						<td>
-							<a href="https://www.vulkan.org/">
-								Vulkan Webpage
-							</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+				</div>
+					
+				<div class="table">	
+					<h2>
+					When did you visit the site?
+					</h2>
+
+					<form onsubmit="handleSubmit(event)">
+						<label for="day">Day:</label>
+						<input type="number" id="day" required>
+						<br><br>
+
+						<label for="month">Month:</label>
+						<input type="number" id="month" required>
+						<br><br>
+
+						<label for="year">Year:</label>
+						<input type="number" id="year" required>
+						<br><br>
+
+						<input type="submit" value="Submit">
+					</form>
+
+					<script>
+						function handleSubmit(event) 
+							{
+							event.preventDefault();
+							const day = document.getElementById('day').value;
+							const month = document.getElementById('month').value;
+							const year = document.getElementById('year').value;
+
+							alert
+							(
+								`You said you visited on: ${month}/${day}/${year}`
+							);
+						}
+					</script>
+				</div>
+			</div>
+
+			<div class="negative_two_margin">
+				<div class="table_row">
+					<div class="table">
+						<h2>
+							What are the build requirements of the Plain Engine?
+						</h2>
+						
+						<p>
+							&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+							The Plain Engine has different build requirements depending on the applications use. The minimum specs are what is needed for 
+							standard rasterization mostly static scenes. The average specs allow for more dynamic use of rigid bodies with GPU ray tracing.
+							The high specs are what is required for certain mass aggregates like fluid and particle dynamics, as well as fast render times
+							on CPU raytracing.
+						</p>
+						
+						<table>
+							<thead>
+								<tr>
+									<th>
+										Component:
+									</th>
+									<th>
+										Minimum Specs:
+									</th>
+									<th>
+										Average Specs:
+									</th>
+									<th>
+										High Specs:
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										CPU
+									</td>
+									<td>
+										Intel i5-7500 / AMD Ryzen 3 1200
+									</td>
+									<td>
+										Intel i5-12600K / AMD Ryzen 5 5600X
+									</td>
+									<td>
+										Intel i7-13700K / Ryzen 9 7900X
+									</td>
+								</tr>
+								<tr>
+									<td>
+										GPU
+									</td>
+									<td>
+										NVIDIA GTX 1050 / AMD RX 560
+									</td>
+									<td>
+										NVIDIA RTX 3060 / AMD RX 6700 XT
+									</td>
+									<td>
+										NVIDIA RTX 4080 / AMD RX 7900 XTX
+									</td>
+								</tr>
+								<tr>
+									<td>
+										RAM
+									</td>
+									<td>
+										8 GB DDR4
+									</td>
+									<td>
+										16 GB DDR4
+									</td>
+									<td>
+										32 GB DDR5
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Compiler
+									</td>
+									<td>
+										C++17
+									</td>
+									<td>
+										C++20
+									</td>
+									<td>
+										C++23
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Vulkan API
+									</td>
+									<td>
+										Vulkan 1.2
+									</td>
+									<td>
+										Vulkan 1.3
+									</td>
+									<td>
+										Vulkan 1.3
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="table">
+						<h2>
+							What is the Plain Engine Dependent on?
+						</h2>
+					
+						<p>
+							&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+							The Plain Engine is dependent on Assimp, Clang, CMake, GLFW, Glslang, SPIR-V Tools, and Vulkan API.
+							These dependancies do not relate to the math or physics engine directly, as they are made entirely from scratch.
+							The dependancies listed are required for platform control, file reading, rendering APIs, and compiling purposes only.
+						</p>
+					
+						<table>
+							<thead>
+								<tr>
+									<th>
+										Dependency:
+									</th>
+									<th>
+										Description:
+									</th>
+									<th>
+										Webpage:
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>
+										Assimp
+									</td>
+									<td>
+										A multi-platform 3D model importer and exporter.
+									</td>
+									<td>
+										<a href="https://assimp-docs.readthedocs.io/en/latest/about/introduction.html">
+											Assimp Webpage
+										</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Clang
+									</td>
+									<td>
+										A cross-platform C++ compiler built on LLVM.
+									</td>
+									<td>
+										<a href="https://clang.llvm.org/index.html">
+											Clang Webpage
+										</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										CMake
+									</td>
+									<td>
+										A build-system generator.
+									</td>
+									<td>
+										<a href="https://cmake.org/about/">
+											CMake Webpage
+										</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										GLFW
+									</td>
+									<td>
+										A cross-platform windowing and input library.
+									</td>
+									<td>
+										<a href="https://www.glfw.org/docs/latest/intro_guide.html">
+											GLFW Webpage
+										</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Glslang
+									</td>
+									<td>
+										A GLSL/HLSL to SPIR-V shader compiler.
+									</td>
+									<td>
+										<a href="https://www.khronos.org/opengles/sdk/tools/Reference-Compiler/">
+											Glslang Webpage
+										</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										SPIR-V Tools
+									</td>
+									<td>
+										Utilities for SPIR-V shader inspection and validation.
+									</td>
+									<td>
+										<a href="https://chromium.googlesource.com/external/github.com/KhronosGroup/SPIRV-Tools/+/spirv-1.1-rev1/README.md">
+											SPIR-V Tools Webpage
+										</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Vulkan API
+									</td>
+									<td>
+										A cross-platform graphics and compute API.
+									</td>
+									<td>
+										<a href="https://www.vulkan.org/">
+											Vulkan Webpage
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
 		</main>
 	
 		<footer>
@@ -434,5 +473,8 @@
 				&copy; 2025, Darragh McConville. All Rights Reserved.
 			</div>
 		</footer>
+		
+		<script defer src="theme.js">
+		</script>
 	</body>
 </html>
