@@ -4,8 +4,8 @@ document.addEventListener
 	{
 		const themeToggle = document.getElementById('theme-toggle');
 		const body = document.body;
-
-		//Set theme.
+		
+		// Set theme.
 		function setTheme(theme) 
 		{
 			if (theme === 'dark') 
@@ -18,21 +18,28 @@ document.addEventListener
 			}
 			localStorage.setItem('theme', theme);
 		}
-
+		
 		// Get theme.
 		const savedTheme = localStorage.getItem('theme') || 'light';
 		setTheme(savedTheme);
-
+		
+		// Set slider.
+		themeToggle.checked = savedTheme === 'dark';
+		
 		// Toggle theme.
 		themeToggle.addEventListener
-		('change', () => 
+		(
+			'change', () => 
 			{
-				const currentTheme = localStorage.getItem('theme');
-				const newTheme = currentTheme === 'dark' 
-					? 'light' 
-					: 'dark';
+				const newTheme = themeToggle.checked 
+					? 'dark' 
+					: 'light';
 				setTheme(newTheme);
 			}
 		);
+		
+		// Log theme.
+		console.log(`Saved theme: ${savedTheme}`);
+		console.log(`Checkbox state: ${themeToggle.checked}`);
 	}
 );
